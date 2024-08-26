@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
   const user = users.find((u) => u.email === email);
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    const token = jwtUtils.generateToken({ id: user.id, email: user.email });
+    const token = jwtUtils.generateToken({ id: user.id, name: user.fullName });
     res.status(StatusCodes.OK).send({ token });
   } else {
     res.status(StatusCodes.UNAUTHORIZED).send("Invalid credentials.");
@@ -42,3 +42,9 @@ exports.register = async (req, res) => {
     res.status(StatusCodes.CREATED).send("User created.");
   }
 };
+
+exports.getNameById =  (id) => {
+  const users = readJSONFile("users.json");
+  const user = users.find((u) => u.id === id);
+  return user.fullName;
+}

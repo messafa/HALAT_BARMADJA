@@ -1,5 +1,8 @@
 const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const { StatusCodes } = require("http-status-codes");
+const { getNameById } = require("./authController");
+// jwt
+const jwtUtils = require("../utils/jwtUtils");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({
   length: 8,
@@ -8,25 +11,31 @@ const uid = new ShortUniqueId({
 
 exports.getCows = (req, res) => {
   const cows = readJSONFile("cows.json");
-  res.send(cows);
+  res.status(StatusCodes.OK).json({ count: cows.length ,cows: cows});
 };
 
 exports.getCow = (req, res) => {
   const cows = readJSONFile("cows.json");
   const cow = cows.find((c) => c.id === parseInt(req.params.id));
   if (cow) {
-    res.status(StatusCodes.OK).send(cow);
+    res.status(StatusCodes.OK).json(cow);
   } else {
-    res.status(StatusCodes.NOT_FOUND).send("Cow not found.");
+    res.status(StatusCodes.NOT_FOUND).json({msg: "Cow not found."});
   }
 };
 
 exports.addCow = (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  console.log(token);
+  const decoded = jwtUtils.verifyToken(token);
+  console.log(decoded);
   const cows = readJSONFile("cows.json");
   const newCow = {
-    id: parseInt(uid()),
+    id: parseInt(uid.rnd()),
     ...req.body,
+    addedBy: getNameById(decoded.id),
   };
+  console.log(newCow);
   cows.push(newCow);
   writeJSONFile("cows.json", cows);
   res.status(StatusCodes.CREATED).send(newCow);
