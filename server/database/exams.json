@@ -1,0 +1,16 @@
+[
+    {
+        "id": "199d96dc-0d7d-4fbf-8d7e-e177cb7f6f70",
+        "disease": "Brucellosis",
+        "date": "",
+        "entryDate": "2023-03-30",
+        "cowId": "9ee3f8c9-047d-472b-beb9-269fc881f316"
+    },
+    {
+        "id": "fe528256-f899-4ea5-b5c1-088d1b8ef9ac",
+        "disease": "Bluetongue",
+        "date": "",
+        "entryDate": "2023-03-28",
+        "cowId": "eef8aa03-2976-449b-a38d-4163c8273174"
+    }
+]

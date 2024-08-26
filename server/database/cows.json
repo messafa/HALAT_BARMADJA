@@ -1,0 +1,61 @@
+[
+  {
+    "id": "eef8aa03-2976-449b-a38d-4163c8273174",
+    "addedBy": "khalil",
+    "breed": "holstein",
+    "entryDate": "2023-05-19",
+    "origin": "importer"
+  },
+  {
+    "id": "0719a856-87fa-4b5b-94d0-9e95e0d9f086",
+    "addedBy": "amine mez",
+    "breed": "holstein",
+    "entryDate": "2023-03-16",
+    "origin": "importer"
+  },
+  {
+    "id": "0b4ebd90-6578-42c1-83ea-326d6bbd3a80",
+    "addedBy": "amine mez",
+    "breed": "montbliard",
+    "entryDate": "2023-03-24",
+    "motherId": "9ee3f8c9-047d-472b-beb9-269fc881f316",
+    "origin": "farm"
+  },
+  {
+    "id": "3562f0e5-111d-4929-a7ee-6f453df9cab4",
+    "addedBy": "khalil",
+    "breed": "holstein",
+    "entryDate": "2023-03-31",
+    "motherId": "9ee3f8c9-047d-472b-beb9-269fc881f316",
+    "origin": "farm"
+  },
+  {
+    "id": "f6df06d5-f027-40e5-8c12-6fc01a8e9b34",
+    "addedBy": "khalil",
+    "breed": "holstein",
+    "entryDate": "2023-03-30",
+    "origin": "importer"
+  },
+  {
+    "id": "b6b90938-7896-4c74-841d-e5439b8cfb5b",
+    "addedBy": "khalil meziane",
+    "breed": "holstein",
+    "entryDate": "2023-03-29",
+    "origin": "importer"
+  },
+  {
+    "id": "5f2f25a5-4a68-478b-adef-cc8957f66fd8",
+    "addedBy": "meziane khalil",
+    "breed": "holstein",
+    "entryDate": "2023-03-31",
+    "motherId": "0b4ebd90-6578-42c1-83ea-326d6bbd3a80",
+    "origin": "farm"
+  },
+  {
+    "id": "af58e49f-f847-47e9-82da-79adf2ed2963",
+    "addedBy": "meziane khalil",
+    "breed": "holstein",
+    "entryDate": "2023-04-01",
+    "origin": "importer"
+  }
+]

@@ -1,12 +1,18 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+const cowRoutes = require("./routes/cowRoutes");
+const authRoutes = require("./routes/authRoutes");
+
+require("dotenv").config();
 
 const app = express();
-const port = 3000;
+app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+app.use("/api/cows", cowRoutes);
+app.use("/api/auth", authRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

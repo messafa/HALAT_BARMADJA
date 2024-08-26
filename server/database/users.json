@@ -1,0 +1,9 @@
+[
+  {
+    "id": 123,
+    "fullName": "ahmed mezaien",
+    "email": "ahmed@gmail.com",
+    "password": "$argon2id$v=19$m=65536,t=3,p=4$RAKhP5Oz+omX4eHn0szaSQ$W757nKb+cQqLAIAPmZsse0S7EYh1aSmFVbEzd3IOJVo",
+    "createdAt": "2023-03-31"
+  }
+]
