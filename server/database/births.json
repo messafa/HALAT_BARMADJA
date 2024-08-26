@@ -1,5 +1,10 @@
+
 [
     {
-        
+        "birthId": 1,
+        "motherId": 1,
+        "dateBirth": "2021-01-01",
+        "gender": "M",
+        "addedBy": {}
     }
 ]
