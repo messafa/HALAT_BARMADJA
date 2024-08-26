@@ -4,5 +4,11 @@
     "fullName": "ahmed mezaien",
     "email": "ahmed@gmail.com",
     "password": "$argon2id$v=19$m=65536,t=3,p=4$RAKhP5Oz+omX4eHn0szaSQ$W757nKb+cQqLAIAPmZsse0S7EYh1aSmFVbEzd3IOJVo"
+  },
+  {
+    "id": 702,
+    "fullName": "messafa lahcen",
+    "email": "messafa@gmail.com",
+    "password": "$2b$10$iq9BlRgh7JUkNBDxvu0QoOrSf5rvzjmt9MP6rTCkWM0ijSyqziMfK"
   }
 ]

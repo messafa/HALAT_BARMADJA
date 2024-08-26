@@ -1,15 +1,20 @@
-const { readJSONFile } = require("../utils/jsonUtils");
+const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const jwtUtils = require("../utils/jwtUtils");
 const { StatusCodes } = require("http-status-codes");
+const bcrypt = require("bcrypt");
+const ShortUniqueId = require("short-unique-id");
 
-const argon2 = require("argon2");
+const uid = new ShortUniqueId({ 
+  length: 3,
+  dictionary: "number",
+});
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   const users = readJSONFile("users.json");
   const user = users.find((u) => u.email === email);
 
-  if (user && (await argon2.verify(user.password, password))) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwtUtils.generateToken({ id: user.id, email: user.email });
     res.status(StatusCodes.OK).send({ token });
   } else {
@@ -18,21 +23,22 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const { fullName, email, password } = req.body;
   const users = readJSONFile("users.json");
-  const user = users.find((u) => u.email === email);
+  const { email, password , fullName} = req.body;
+  const existingUser = users.find((u) => u.email === email);
 
-  if (user) {
-    res.status(StatusCodes.BAD_REQUEST).send("User already exists.");
+  if (existingUser) {
+    res.status(StatusCodes.CONFLICT).send("User already exists.");
   } else {
-    const hashedPassword = await argon2.hash(password);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-      id: users.length + 1,
+      id: parseInt(uid.rnd()), // This will generate a numeric ID
       fullName,
       email,
       password: hashedPassword,
     };
     users.push(newUser);
-    res.status(StatusCodes.CREATED).send(newUser);
-  }
+    writeJSONFile("users.json", users);
+    res.status(StatusCodes.CREATED).send("User created.");
+  }
 };
