@@ -110,3 +110,16 @@ exports.deleteCow = (req, res) => {
     res.status(StatusCodes.UNAUTHORIZED).send("Invalid token.");
   }
 };
+
+
+exports.checkCowId = (cowId) => {
+  const cows = readJSONFile("cows.json");
+  console.log(cowId);
+  const cow = cows.find((c) => c.id === +cowId);
+  console.log(cow);
+  if (cow) {
+    return true;
+  } 
+  return false;
+  
+};
