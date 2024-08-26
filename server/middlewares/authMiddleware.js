@@ -1,16 +1,17 @@
 const jwt = require("jsonwebtoken");
+const { StatusCodes } = require("http-status-codes");
 
 exports.authenticate = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
+  const token = req.header("Authorization");
   if (!token) {
-    return res.status(401).send("Access denied. No token provided.");
+    return res.status(StatusCodes.UNAUTHORIZED).send("Access denied.");
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = verified;
     next();
-  } catch (ex) {
-    res.status(400).send("Invalid token.");
+  } catch (err) {
+    res.status(StatusCodes.UNAUTHORIZED).send("Invalid token.");
   }
 };
