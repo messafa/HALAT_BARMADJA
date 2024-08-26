@@ -1,14 +1,14 @@
 [
   {
-    "id": 1234567,
-    "addedBy": {},
-    "breed": "holstein",
-    "entryDate": "2023-05-19"
-  },
-  {
     "id": 58000849,
     "breed": "holstein",
     "entryDate": "2024-10-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146233,
+    "breed": "holstein",
+    "entryDate": "2024-12-10",
     "addedBy": "messafa lahcen"
   }
 ]

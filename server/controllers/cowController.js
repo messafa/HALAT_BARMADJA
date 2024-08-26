@@ -59,7 +59,7 @@ exports.deleteCow = (req, res) => {
   const filteredCows = cows.filter((c) => c.id !== parseInt(req.params.id));
   if (filteredCows.length < cows.length) {
     writeJSONFile("cows.json", filteredCows);
-    res.status(StatusCodes.OK).send("Cow deleted.");
+    res.status(StatusCodes.OK).send("Cow removed.");
   } else {
     res.status(StatusCodes.NOT_FOUND).send("Cow not found.");
   }
