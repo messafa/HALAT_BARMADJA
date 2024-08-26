@@ -1,23 +1,9 @@
 [
   {
-    "id": 1,
-    "cowId": 1234567,
-    "disease": "Brucellosis",
-    "date": "2020-05-19",
-    "addedBy": {}
-  },
-  {
     "id": 2006,
     "date": "2020-02-02",
     "cowId": 58000849,
     "disease": "disease1",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 4105,
-    "date": "2020-02-03",
-    "cowId": 58000849,
-    "disease": "disease2",
     "addedBy": "messafa lahcen"
   }
 ]

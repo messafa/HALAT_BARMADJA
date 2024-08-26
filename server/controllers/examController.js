@@ -29,7 +29,7 @@ exports.addExam = (req, res) => {
 
   const decoded = jwtUtils.verifyToken(token);
   if (checkCowId(req.body.cowId)) {
-        
+
       const exams = readJSONFile("exams.json");
       const newExam = {
         id: parseInt(uid.rnd()),
@@ -49,10 +49,14 @@ exports.updateExam = (req, res) => {
   const exams = readJSONFile("exams.json");
   const examIndex = exams.findIndex((e) => e.id === parseInt(req.params.id));
   if (examIndex !== -1) {
-    const updatedExam = { ...exams[examIndex], ...req.body };
-    exams[examIndex] = updatedExam;
-    writeJSONFile("exams.json", exams);
-    res.status(StatusCodes.OK).json(updatedExam);
+    if (checkCowId(req.body.cowId)) {
+      const updatedExam = { ...exams[examIndex], ...req.body };
+      exams[examIndex] = updatedExam;
+      writeJSONFile("exams.json", exams);
+      res.status(StatusCodes.OK).json(updatedExam);
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json({ msg: "Cow not found." });
+    }
   } else {
     res.status(StatusCodes.NOT_FOUND).json({ msg: "Exam not found." });
   }
