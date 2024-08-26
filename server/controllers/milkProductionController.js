@@ -2,6 +2,11 @@ const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const jwtUtils = require("../utils/jwtUtils");
 const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthorizedError,
+} = require("../utils/errors");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({
   length: 10,
@@ -15,7 +20,9 @@ exports.getMilkProductions = (req, res) => {
 
 exports.getMilkProduction = (req, res) => {
   const milkProductions = readJSONFile("milkProductions.json");
-  const milkProduction = milkProductions.find((m) => m.id === parseInt(req.params.id));
+  const milkProduction = milkProductions.find(
+    (m) => m.id === parseInt(req.params.id)
+  );
   if (milkProduction) {
     res.status(StatusCodes.OK).send(milkProduction);
   } else {
@@ -24,9 +31,10 @@ exports.getMilkProduction = (req, res) => {
 };
 
 exports.getMilkProductionByDate = (req, res) => {
-
   const milkProductions = readJSONFile("milkProductions.json");
-  const milkProduction = milkProductions.find((m) => m.dateProdicted === req.params.dateProdicted);
+  const milkProduction = milkProductions.find(
+    (m) => m.dateProdicted === req.params.dateProdicted
+  );
   if (milkProduction) {
     res.status(StatusCodes.OK).send(milkProduction);
   } else {
@@ -38,7 +46,9 @@ exports.addMilkProduction = (req, res) => {
   const milkProductions = readJSONFile("milkProductions.json");
   const milkProduction = milkProductions.find((m) => m.date === req.body.date);
   if (milkProduction) {
-    res.status(StatusCodes.CONFLICT).json({ msg: `The production of the date: ${req.body.date} already exists.` });
+    throw new BadRequestError(
+      `Milk production already exists for date ${req.body.date}.`
+    );
   } else {
     const token = req.headers.authorization.split(" ")[1];
     try {
@@ -53,13 +63,12 @@ exports.addMilkProduction = (req, res) => {
         writeJSONFile("milkProductions.json", milkProductions);
         res.status(StatusCodes.CREATED).send(newMilkProduction);
       } else {
-        res.status(StatusCodes.UNAUTHORIZED).send("Invalid token.");
+        throw new UnauthorizedError("Invalid token.");
       }
     } catch (error) {
-      res.status(StatusCodes.UNAUTHORIZED).send("Invalid token.");
+      throw new UnauthorizedError("Invalid token.");
     }
   }
-  
 };
 
 exports.updateMilkProduction = (req, res) => {
@@ -68,12 +77,15 @@ exports.updateMilkProduction = (req, res) => {
     (m) => m.id === parseInt(req.params.id)
   );
   if (milkProductionIndex !== -1) {
-    const updatedMilkProduction = { ...milkProductions[milkProductionIndex], ...req.body };
+    const updatedMilkProduction = {
+      ...milkProductions[milkProductionIndex],
+      ...req.body,
+    };
     milkProductions[milkProductionIndex] = updatedMilkProduction;
     writeJSONFile("milkProductions.json", milkProductions);
     res.status(StatusCodes.OK).send(updatedMilkProduction);
   } else {
-    res.status(StatusCodes.NOT_FOUND).send("Milk production not found.");
+    throw new NotFoundError("Milk production not found.");
   }
 };
 
@@ -86,6 +98,6 @@ exports.deleteMilkProduction = (req, res) => {
     writeJSONFile("milkProductions.json", filteredMilkProductions);
     res.status(StatusCodes.OK).send("Milk production deleted.");
   } else {
-    res.status(StatusCodes.NOT_FOUND).send("Milk production not found.");
+    throw new NotFoundError("Milk production not found.");
   }
 };

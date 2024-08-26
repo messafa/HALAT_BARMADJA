@@ -3,6 +3,11 @@ const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
 const { checkCowId } = require("./cowController");
 const jwtUtils = require("../utils/jwtUtils");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthorizedError,
+} = require("../utils/errors");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({
   length: 4,
@@ -20,7 +25,7 @@ exports.getBirth = (req, res) => {
   if (birth) {
     res.status(StatusCodes.OK).json(birth);
   } else {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "Birth not found." });
+    throw new NotFoundError("Birth not found.");
   }
 };
 
@@ -39,7 +44,7 @@ exports.addBirth = (req, res) => {
     writeJSONFile("births.json", births);
     res.status(StatusCodes.CREATED).send(newBirth);
   } else {
-    res.status(StatusCodes.BAD_REQUEST).json({ msg: `we don't cow with id=${req.body.motherId}` });
+    throw new BadRequestError(`we don't cow with id=${req.body.motherId}`);
   }
 };
 
@@ -53,10 +58,10 @@ exports.updateBirth = (req, res) => {
       writeJSONFile("births.json", births);
       res.status(StatusCodes.OK).json(updatedBirth);
     } else {
-      res.status(StatusCodes.BAD_REQUEST).json({ msg: "Cow not found." });
+      throw new BadRequestError(`we don't cow with id=${req.body.motherId}`);
     }
   } else {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "Birth not found." });
+    throw new NotFoundError("Birth not found.");
   }
 };
 

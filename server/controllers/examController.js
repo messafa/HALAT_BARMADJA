@@ -3,6 +3,11 @@ const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
 const { checkCowId } = require("./cowController");
 const jwtUtils = require("../utils/jwtUtils");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthorizedError,
+} = require("../utils/errors");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({
   length: 4,
@@ -20,7 +25,7 @@ exports.getExam = (req, res) => {
   if (exam) {
     res.status(StatusCodes.OK).json(exam);
   } else {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "Exam not found." });
+    throw new NotFoundError("Exam not found.");
   }
 };
 
@@ -41,8 +46,8 @@ exports.addExam = (req, res) => {
       res.status(StatusCodes.CREATED).send(newExam);
    
   } else {
-    res.status(StatusCodes.BAD_REQUEST).json({ msg: "Cow not found." });
-  }
+    throw new BadRequestError(`Cow not found.`);
+    }
 };
 
 exports.updateExam = (req, res) => {
@@ -55,10 +60,10 @@ exports.updateExam = (req, res) => {
       writeJSONFile("exams.json", exams);
       res.status(StatusCodes.OK).json(updatedExam);
     } else {
-      res.status(StatusCodes.BAD_REQUEST).json({ msg: "Cow not found." });
+      throw new BadRequestError(`Cow not found.`);
     }
   } else {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "Exam not found." });
+    throw new NotFoundError("Exam not found.");
   }
 };
 
@@ -69,6 +74,6 @@ exports.deleteExam = (req, res) => {
     writeJSONFile("exams.json", filteredExams);
     res.status(StatusCodes.OK).json({ msg: `Exam ${req.params.id} deleted.` });
   } else {
-    res.status(StatusCodes.NOT_FOUND).json({ msg: "Exam not found." });
+    throw new NotFoundError("Exam not found.");
   }
 };

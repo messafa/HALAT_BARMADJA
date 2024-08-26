@@ -2,9 +2,14 @@ const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const jwtUtils = require("../utils/jwtUtils");
 const { StatusCodes } = require("http-status-codes");
 const bcrypt = require("bcrypt");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthorizedError,
+} = require("../utils/errors");
 const ShortUniqueId = require("short-unique-id");
 
-const uid = new ShortUniqueId({ 
+const uid = new ShortUniqueId({
   length: 3,
   dictionary: "number",
 });
@@ -18,21 +23,21 @@ exports.login = async (req, res) => {
     const token = jwtUtils.generateToken({ id: user.id, name: user.fullName });
     res.status(StatusCodes.OK).send({ token });
   } else {
-    res.status(StatusCodes.UNAUTHORIZED).send("Invalid credentials.");
+    throw new UnauthorizedError("Invalid credentials.");
   }
 };
 
 exports.register = async (req, res) => {
   const users = readJSONFile("users.json");
-  const { email, password , fullName} = req.body;
+  const { email, password, fullName } = req.body;
   const existingUser = users.find((u) => u.email === email);
 
   if (existingUser) {
-    res.status(StatusCodes.CONFLICT).send("User already exists.");
+    throw new BadRequestError("User already exists.");
   } else {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-      id: parseInt(uid.rnd()), // This will generate a numeric ID
+      id: parseInt(uid.randomUUID(8)),
       fullName,
       email,
       password: hashedPassword,
@@ -40,11 +45,11 @@ exports.register = async (req, res) => {
     users.push(newUser);
     writeJSONFile("users.json", users);
     res.status(StatusCodes.CREATED).send("User created.");
-  }
+  }
 };
 
-exports.getNameById =  (id) => {
+exports.getNameById = (id) => {
   const users = readJSONFile("users.json");
   const user = users.find((u) => u.id === id);
   return user.fullName;
-}
+};
