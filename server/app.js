@@ -13,11 +13,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/cows", cowRoutes);  // Done
-app.use("/auth", authRoutes); // Done
-app.use("/milk", milkRoutes); // Done
-app.use("/exam", examRoutes); // Todo: 
-app.use("/births", birthRoutes);
+app.use("/cows", cowRoutes);      // Done
+app.use("/auth", authRoutes);     // Done
+app.use("/milk", milkRoutes);     // Done
+app.use("/exam", examRoutes);     // Done
+app.use("/births", birthRoutes);  // Todo: work on this
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

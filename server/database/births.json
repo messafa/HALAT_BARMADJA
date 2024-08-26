@@ -1,10 +1,30 @@
-
 [
-    {
-        "birthId": 1,
-        "motherId": 1,
-        "dateBirth": "2021-01-01",
-        "gender": "M",
-        "addedBy": {}
-    }
+  {
+    "id": 750,
+    "motherId": 19146233,
+    "dateBirth": "2009-01-01",
+    "gender": "F",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5391,
+    "motherId": 58000849,
+    "dateBirth": "2021-01-01",
+    "gender": "F",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 6457,
+    "motherId": 19146233,
+    "dateBirth": "2021-01-01",
+    "gender": "F",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 6043,
+    "motherId": 19146233,
+    "dateBirth": "2021-01-01",
+    "gender": "F",
+    "addedBy": "messafa lahcen"
+  }
 ]
