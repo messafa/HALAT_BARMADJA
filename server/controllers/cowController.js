@@ -1,4 +1,5 @@
 const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
+const { StatusCodes } = require("http-status-codes");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({
   length: 8,
@@ -14,9 +15,9 @@ exports.getCow = (req, res) => {
   const cows = readJSONFile("cows.json");
   const cow = cows.find((c) => c.id === parseInt(req.params.id));
   if (cow) {
-    res.send(cow);
+    res.status(StatusCodes.OK).send(cow);
   } else {
-    res.status(404).send("Cow not found.");
+    res.status(StatusCodes.NOT_FOUND).send("Cow not found.");
   }
 };
 
@@ -24,12 +25,11 @@ exports.addCow = (req, res) => {
   const cows = readJSONFile("cows.json");
   const newCow = {
     id: parseInt(uid()),
-    addedBy: req.user,
     ...req.body,
   };
   cows.push(newCow);
   writeJSONFile("cows.json", cows);
-  res.status(201).send(newCow);
+  res.status(StatusCodes.CREATED).send(newCow);
 };
 
 exports.updateCow = (req, res) => {
@@ -39,9 +39,9 @@ exports.updateCow = (req, res) => {
     const updatedCow = { ...cows[cowIndex], ...req.body };
     cows[cowIndex] = updatedCow;
     writeJSONFile("cows.json", cows);
-    res.send(updatedCow);
+    res.status(StatusCodes.OK).send(updatedCow);
   } else {
-    res.status(404).send("Cow not found.");
+    res.status(StatusCodes.NOT_FOUND).send("Cow not found.");
   }
 };
 
@@ -50,8 +50,8 @@ exports.deleteCow = (req, res) => {
   const filteredCows = cows.filter((c) => c.id !== parseInt(req.params.id));
   if (filteredCows.length < cows.length) {
     writeJSONFile("cows.json", filteredCows);
-    res.send("Cow deleted.");
+    res.status(StatusCodes.OK).send("Cow deleted.");
   } else {
-    res.status(404).send("Cow not found.");
+    res.status(StatusCodes.NOT_FOUND).send("Cow not found.");
   }
 };
