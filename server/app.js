@@ -4,7 +4,7 @@ const cors = require("cors");
 const cowRoutes = require("./routes/cowRoutes");
 const authRoutes = require("./routes/authRoutes");
 const milkRoutes = require("./routes/milkProductionRoutes");
-const userRoutes = require("./routes/authRoutes");
+const examRoutes = require("./routes/examRoutes");
 const birthRoutes = require("./routes/birthRoutes");
 
 require("dotenv").config();
@@ -15,8 +15,8 @@ app.use(express.json());
 
 app.use("/cows", cowRoutes);  // Done
 app.use("/auth", authRoutes); // Done
-app.use("/milk", milkRoutes);
-app.use("/users", userRoutes);
+app.use("/milk", milkRoutes); // Done
+app.use("/exam", examRoutes); // Todo: 
 app.use("/births", birthRoutes);
 
 const PORT = process.env.PORT || 5000;

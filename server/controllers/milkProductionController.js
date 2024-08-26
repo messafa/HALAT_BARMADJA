@@ -1,4 +1,5 @@
 const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
+const jwtUtils = require("../utils/jwtUtils");
 const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
 const ShortUniqueId = require("short-unique-id");
@@ -35,15 +36,30 @@ exports.getMilkProductionByDate = (req, res) => {
 
 exports.addMilkProduction = (req, res) => {
   const milkProductions = readJSONFile("milkProductions.json");
-  const newMilkProduction = {
-    id: parseInt(uid.rnd()),
-    addedBy: getNameById(req.body.addedBy),
-    ...req.body,
-  };
-  milkProductions.push(newMilkProduction);
-  writeJSONFile("milkProductions.json", milkProductions);
-  res.status(StatusCodes.CREATED).send(newMilkProduction);
-
+  const milkProduction = milkProductions.find((m) => m.date === req.body.date);
+  if (milkProduction) {
+    res.status(StatusCodes.CONFLICT).json({ msg: `The production of the date: ${req.body.date} already exists.` });
+  } else {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+      const decoded = jwtUtils.verifyToken(token);
+      if (decoded) {
+        const newMilkProduction = {
+          id: parseInt(uid.rnd()),
+          ...req.body,
+          addedBy: getNameById(decoded.id),
+        };
+        milkProductions.push(newMilkProduction);
+        writeJSONFile("milkProductions.json", milkProductions);
+        res.status(StatusCodes.CREATED).send(newMilkProduction);
+      } else {
+        res.status(StatusCodes.UNAUTHORIZED).send("Invalid token.");
+      }
+    } catch (error) {
+      res.status(StatusCodes.UNAUTHORIZED).send("Invalid token.");
+    }
+  }
+  
 };
 
 exports.updateMilkProduction = (req, res) => {
