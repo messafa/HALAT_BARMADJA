@@ -13,8 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/cows", cowRoutes);
-app.use("/auth", authRoutes);
+app.use("/cows", cowRoutes);  // Done
+app.use("/auth", authRoutes); // Done
 app.use("/milk", milkRoutes);
 app.use("/users", userRoutes);
 app.use("/births", birthRoutes);

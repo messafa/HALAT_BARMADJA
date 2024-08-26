@@ -1,7 +1,6 @@
 const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
-// jwt
 const jwtUtils = require("../utils/jwtUtils");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({
