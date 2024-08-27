@@ -32,7 +32,7 @@ function CardComponent() {
       m="4"
     >
       <Image
-        src="https://via.placeholder.com/200"
+        src="/calf03.jpg"
         alt="Image"
         objectFit="cover"
         width="200px"

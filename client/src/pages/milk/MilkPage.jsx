@@ -1,6 +1,7 @@
-import React from "react";
+import  { useState } from "react";
 import { Box, Button, Heading, Flex, SimpleGrid, useColorMode } from "@chakra-ui/react";
 import CircularInfoComponent from "./components/CircularInfoComponent";
+import NowProdiction from "./components/NewProdiction"; // استيراد مكون NowProdiction
 
 const generateFakeData = () => {
   const baseDate = new Date();
@@ -13,8 +14,21 @@ const generateFakeData = () => {
 };
 
 const MilkPage = () => {
+  // eslint-disable-next-line no-unused-vars
   const { colorMode } = useColorMode();
   const fakeData = generateFakeData();
+  
+  // إدارة حالة فتح/إغلاق النافذة المنبثقة
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleSaveProduction = (newProductionData) => {
+    // يمكنك إضافة المنطق الخاص بحفظ بيانات الإنتاج الجديدة هنا
+    console.log("New Production Data:", newProductionData);
+    setIsModalOpen(false);
+  };
 
   return (
     <Box p={4}>
@@ -23,7 +37,7 @@ const MilkPage = () => {
         <Heading fontSize="2xl" fontWeight="bold">
           Our Milk Production
         </Heading>
-        <Button colorScheme="teal" variant="solid">
+        <Button colorScheme="teal" variant="solid" onClick={handleOpenModal}>
           Add Production
         </Button>
       </Flex>
@@ -43,6 +57,13 @@ const MilkPage = () => {
           />
         ))}
       </SimpleGrid>
+
+      {/* مكون النافذة المنبثقة NowProdiction */}
+      <NowProdiction 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+        onSave={handleSaveProduction} 
+      />
     </Box>
   );
 };
