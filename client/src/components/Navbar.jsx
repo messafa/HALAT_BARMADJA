@@ -25,10 +25,12 @@ const Navbar = () => {
     m={2}
     bg="teal.500" px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        <Box 
+        <Box
+        fontFamily={'cursive'} 
         fontWeight="bold" 
-        fontSize="xl" 
+        fontSize="2xl" 
         color="white"
+
         >
           Milki
         </Box>

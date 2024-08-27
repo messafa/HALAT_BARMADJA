@@ -106,16 +106,16 @@ const Home = () => {
 
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} p={4}>
-      <Box bg="red.200" height="300px" p={4}>
+      <Box bg="red.200" height="300px" p={4} borderRadius={10} >
         <Bar data={barData} />
       </Box>
-      <Box bg="green.900" height="300px" p={4}>
+      <Box bg="green.900" height="300px" p={4} borderRadius={10} >
         <Line data={NewData} />
       </Box>
-      <Box bg="blue.200" height="300px" p={4}>
+      <Box bg="blue.200" height="300px" p={4} borderRadius={10} >
         <Pie data={pieData} />
       </Box>
-      <Box bg="yellow.200" height="300px" p={4}>
+      <Box bg="yellow.200" height="300px" p={4} borderRadius={10} >
         <Doughnut data={doughnutData} />
       </Box>
     </SimpleGrid>

@@ -7,7 +7,13 @@ const Footer = () => {
   const color = { light: "gray.700", dark: "gray.200" };
 
   return (
-    <Box bg={bgColor[colorMode]} color={color[colorMode]} py={4} mt={8}>
+    <Box bg={bgColor[colorMode]} 
+    color={color[colorMode]} 
+    py={4} 
+    mt={8}
+    borderRadius={10} 
+    mx={2}
+    >
       <Text fontSize="xl" 
       fontWeight="bold" 
       textAlign="center"
