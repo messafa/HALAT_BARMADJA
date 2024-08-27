@@ -22,14 +22,16 @@ const Navbar = () => {
   return (
     <Box borderRadius={15} m={2} bg="teal.500" px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        <Box
-          fontFamily={"cursive"}
-          fontWeight="bold"
-          fontSize="2xl"
-          color="white"
-        >
-          Milki
-        </Box>
+        <NavLink to="/">
+          <Box
+            fontFamily={"cursive"}
+            fontWeight="bold"
+            fontSize="2xl"
+            color="white"
+          >
+            Milki
+          </Box>
+        </NavLink>
         <Flex
           display={{ base: "none", md: "flex" }}
           ml={10}
@@ -78,22 +80,49 @@ const Navbar = () => {
 
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent my={2} borderRadius={20}>
           <DrawerCloseButton />
-          <DrawerHeader>Navigation</DrawerHeader>
+          <DrawerHeader fontFamily={"cursive"} fontSize={"2xl"}>
+            <NavLink to="/" onClick={onClose}>
+              MILKI
+            </NavLink>
+          </DrawerHeader>
           <DrawerBody>
             <Stack as="nav" spacing={4}>
-              <NavLink to="/" onClick={onClose}>
-                Home
+              <NavLink
+                to="/"
+                style={{ marginRight: "16px", fontWeight: "bold" }}
+                onClick={onClose}
+              >
+                Dashboard
               </NavLink>
-              <NavLink to="/about" onClick={onClose}>
-                About
+              <NavLink
+                to="/cows"
+                style={{ marginRight: "16px", fontWeight: "bold" }}
+                onClick={onClose}
+              >
+                Cows
               </NavLink>
-              <NavLink to="/services" onClick={onClose}>
-                Services
+              <NavLink
+                to="/births"
+                style={{ marginRight: "16px", fontWeight: "bold" }}
+                onClick={onClose}
+              >
+                Births
               </NavLink>
-              <NavLink to="/contact" onClick={onClose}>
-                Contact
+              <NavLink
+                to="/milk"
+                style={{ marginRight: "16px", fontWeight: "bold" }}
+                onClick={onClose}
+              >
+                Milk
+              </NavLink>
+              <NavLink
+                to="/exams"
+                style={{ marginRight: "16px", fontWeight: "bold" }}
+                onClick={onClose}
+              >
+                Exams
               </NavLink>
             </Stack>
           </DrawerBody>

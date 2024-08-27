@@ -23,7 +23,10 @@ const LoginPage = () => {
   };
 
   return (
-    <ChakraProvider>
+    <ChakraProvider
+     // I want add a background image to the login page
+
+    >
       <Box
         maxW="md"
         mx="auto"

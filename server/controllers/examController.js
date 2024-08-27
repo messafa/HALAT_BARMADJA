@@ -34,20 +34,18 @@ exports.addExam = (req, res) => {
 
   const decoded = jwtUtils.verifyToken(token);
   if (checkCowId(req.body.cowId)) {
-
-      const exams = readJSONFile("exams.json");
-      const newExam = {
-        id: parseInt(uid.rnd()),
-        ...req.body,
-        addedBy: getNameById(decoded.id),
-      };
-      exams.push(newExam);
-      writeJSONFile("exams.json", exams);
-      res.status(StatusCodes.CREATED).send(newExam);
-   
+    const exams = readJSONFile("exams.json");
+    const newExam = {
+      id: parseInt(uid.rnd()),
+      ...req.body,
+      addedBy: getNameById(decoded.id),
+    };
+    exams.push(newExam);
+    writeJSONFile("exams.json", exams);
+    res.status(StatusCodes.CREATED).send(newExam);
   } else {
     throw new BadRequestError(`Cow not found.`);
-    }
+  }
 };
 
 exports.updateExam = (req, res) => {
@@ -77,3 +75,19 @@ exports.deleteExam = (req, res) => {
     throw new NotFoundError("Exam not found.");
   }
 };
+
+exports.getExamsByCowId = (req, res) => {
+  const exams = readJSONFile("exams.json");
+  const cowExams = exams.filter((e) => e.cowId === parseInt(req.params.cowId));
+  res.status(StatusCodes.OK).json({ count: cowExams.length, exams: cowExams });
+};
+
+// exports.getExamsOfCowByYear = (req, res) => {
+//   const exams = readJSONFile("exams.json");
+//   const cowExams = exams.filter(
+//     (e) =>
+//       e.cowId === parseInt(req.params.cowId) &&
+//       new Date(e.examDate).getFullYear() === parseInt(req.params.year)
+//   );
+//   res.status(StatusCodes.OK).json({ count: cowExams.length, exams: cowExams });
+// }
