@@ -3,8 +3,9 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import LoginPage from './pages/LoginPage';
-import CowsPage from './pages/CowsPage';
+import CowsPage from './pages/cow/CowsPage';
 import NotfoundPage from './pages/NotfoundPage';
+import Footer from './components/Footer';
 
 function App() {
   const url = window.location.href.split("/")[3];
@@ -20,6 +21,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotfoundPage />} />
       </Routes>
+
+      {url.startsWith("login") ? null : <Footer />}
     </Router>
   );
 }
