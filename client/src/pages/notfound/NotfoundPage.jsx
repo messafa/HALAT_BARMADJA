@@ -1,5 +1,5 @@
-import { Box, Image, Heading, Text, Button, VStack, useColorMode } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Box, Image, Heading, Text, VStack, useColorMode } from '@chakra-ui/react';
+
 
 function NotfoundPage() {
   const { colorMode } = useColorMode();
@@ -9,7 +9,7 @@ function NotfoundPage() {
       textAlign="center" 
       py={10} 
       px={6}
-      maxH="100vh" // يجعل الصفحة بطول 100vh
+      maxH="100vh"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -48,4 +48,4 @@ function NotfoundPage() {
   );
 }
 
-export default NotfoundPage;
+export default NotfoundPage;
