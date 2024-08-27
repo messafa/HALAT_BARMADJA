@@ -8,7 +8,13 @@ const Footer = () => {
 
   return (
     <Box bg={bgColor[colorMode]} color={color[colorMode]} py={4} mt={8}>
-      <Text fontSize="lg" fontWeight="bold" textAlign="center">
+      <Text fontSize="xl" 
+      fontWeight="bold" 
+      textAlign="center"
+      fontFamily={'cursive'}
+      mb={3}
+      >
+
         Milki
       </Text>
       <Flex alignItems="center" justifyContent="center" mx="auto" maxW="1200px" px={4}>

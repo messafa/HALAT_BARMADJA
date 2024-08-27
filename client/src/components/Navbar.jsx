@@ -32,18 +32,21 @@ const Navbar = () => {
         >
           Milki
         </Box>
-        <Flex display={{ base: "none", md: "flex" }} ml={10}>
+        <Flex display={{ base: "none", md: "flex" }} ml={10} fontWeight={'bold'}>
           <NavLink to="/" style={{ marginRight: "16px" }}>
-            Home
+            Dashboard
           </NavLink>
-          <NavLink to="/about" style={{ marginRight: "16px" }}>
-            About
+          <NavLink to="/cows" style={{ marginRight: "16px" }}>
+            Cows
           </NavLink>
-          <NavLink to="/services" style={{ marginRight: "16px" }}>
-            Services
+          <NavLink to="/births" style={{ marginRight: "16px" }}>
+            Births
           </NavLink>
-          <NavLink to="/contact" style={{ marginRight: "16px" }}>
-            Contact
+          <NavLink to="/milk" style={{ marginRight: "16px" }}>
+            Milk
+          </NavLink>
+          <NavLink to="/exams" style={{ marginRight: "16px" }}>
+            Exams
           </NavLink>
         </Flex>
         <Flex>
