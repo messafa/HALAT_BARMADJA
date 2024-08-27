@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Layout from './components/Layout';
+
 import Home from './pages/dashboard/Home';
 import LoginPage from './pages/workers/LoginPage';
 import CowsPage from './pages/cows/CowsPage';
@@ -12,23 +12,36 @@ import ExamsPage from './pages/exams/ExamsPage';
 
 
 function App() {
-  const url = window.location.href.split("/")[3];
+ 
   return (
     <Router>
-      {/* if url has login dont diisplay navbar */}
-      {url.startsWith("login") ? null : <Navbar />}
-      
+  
       <Routes>
-        <Route path="/" element={<Home />} />
+
+
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/cows" element={<Layout><CowsPage /></Layout>} />
+        <Route path="/milk" element={<Layout><MilkPage /></Layout>} />
+        <Route path="/births" element={<Layout><BirthsPage /></Layout>} />
+        <Route path="/exams" element={<Layout><ExamsPage /></Layout>} />
+        <Route path="*" element={<NotfoundPage />} />
+
+
+
+
+
+
+        {/* <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cows" element={<CowsPage />} />
         <Route path="/milk" element={<MilkPage />} />
         <Route path="/births" element={<BirthsPage />} />  
         <Route path="/exams" element={<ExamsPage />} />
-        <Route path="*" element={<NotfoundPage />} />
+        <Route path="*" element={<NotfoundPage />} /> */}
       </Routes>
 
-      {url.startsWith("login") ? null : <Footer />}
+
     </Router>
   );
 }

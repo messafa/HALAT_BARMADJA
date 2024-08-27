@@ -20,21 +20,21 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box
-    borderRadius={15}
-    m={2}
-    bg="teal.500" px={4}>
+    <Box borderRadius={15} m={2} bg="teal.500" px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <Box
-        fontFamily={'cursive'} 
-        fontWeight="bold" 
-        fontSize="2xl" 
-        color="white"
-
+          fontFamily={"cursive"}
+          fontWeight="bold"
+          fontSize="2xl"
+          color="white"
         >
           Milki
         </Box>
-        <Flex display={{ base: "none", md: "flex" }} ml={10} fontWeight={'bold'}>
+        <Flex
+          display={{ base: "none", md: "flex" }}
+          ml={10}
+          fontWeight={"bold"}
+        >
           <NavLink to="/" style={{ marginRight: "16px" }}>
             Dashboard
           </NavLink>
@@ -83,7 +83,7 @@ const Navbar = () => {
           <DrawerHeader>Navigation</DrawerHeader>
           <DrawerBody>
             <Stack as="nav" spacing={4}>
-              <NavLink to="/" onClick={onClose} >
+              <NavLink to="/" onClick={onClose}>
                 Home
               </NavLink>
               <NavLink to="/about" onClick={onClose}>
