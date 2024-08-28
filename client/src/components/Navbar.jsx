@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+ 
 
   return (
     <Box borderRadius={15} m={2} bg="teal.500" px={4}>
@@ -58,7 +59,11 @@ const Navbar = () => {
             size="md"
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             aria-label="Toggle Color Mode"
-            onClick={toggleColorMode}
+            // onClick={toggleColorMode}
+            //use refrechPage function to refresh the page after changing the color mode
+            onClick={() => {
+              toggleColorMode();
+            }}
             variant="ghost"
             color={colorMode === "light" ? "gray.800" : "white"}
             ml={2}

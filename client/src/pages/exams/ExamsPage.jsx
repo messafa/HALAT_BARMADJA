@@ -1,15 +1,29 @@
+
 import React from "react";
 import { ChakraProvider, Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import MedicalTestCard from "./components/MedicalTestCard";
+import axios from "axios";
 
 const ExamsPage = () => {
-  const medicalTest = {
-    id: 1,
-    date: "2021-09-01",
-    cowId: 1,
-    disease: "Mastitis",
-    addedBy: "HANOUN44",
-  };
+  const [medicalTests, setMedicalTests] = React.useState([]);
+
+  const token = localStorage.getItem("token");
+  React.useEffect(() => {
+    axios
+      .get( "http://localhost:5001/exam", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setMedicalTests(response.data.exams);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token, setMedicalTests]);
+
+
 
   return (
     <ChakraProvider>
@@ -18,8 +32,8 @@ const ExamsPage = () => {
           Medical Tests
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
-          {Array.from({ length: 10 }, (_, index) => (
-            <MedicalTestCard key={index} test={medicalTest} />
+          {medicalTests.map((medicalTest) => (
+            <MedicalTestCard key={medicalTest.id} test={medicalTest} />
           ))}
         </SimpleGrid>
       </Box>

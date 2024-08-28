@@ -52,13 +52,13 @@ exports.updateExam = (req, res) => {
   const exams = readJSONFile("exams.json");
   const examIndex = exams.findIndex((e) => e.id === parseInt(req.params.id));
   if (examIndex !== -1) {
-    if (checkCowId(req.body.cowId)) {
+    if (checkCowId(parseInt(req.body.cowId))) {
       const updatedExam = { ...exams[examIndex], ...req.body };
       exams[examIndex] = updatedExam;
       writeJSONFile("exams.json", exams);
       res.status(StatusCodes.OK).json(updatedExam);
     } else {
-      throw new BadRequestError(`Cow not found.`);
+      throw new BadRequestError(`Cow with ID ${req.body.cowId} not found.`);
     }
   } else {
     throw new NotFoundError("Exam not found.");

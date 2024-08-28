@@ -57,7 +57,7 @@ exports.updateCow = (req, res) => {
     writeJSONFile("cows.json", cows);
     res.status(StatusCodes.OK).json(updatedCow);
   } else {
-    throw new NotFoundError("Cow not found.");
+    throw new NotFoundError(`Cow with ID ${req.params.id} not found.`);
   }
 };
 
@@ -73,4 +73,9 @@ exports.deleteCow = (req, res) => {
   } else {
     throw new NotFoundError("Cow not found.");
   }
+};
+
+exports.checkCowId = (cowId) => {
+  const cows = readJSONFile("cows.json");
+  return cows.some((c) => c.id === cowId);
 };

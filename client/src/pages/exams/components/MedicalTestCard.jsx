@@ -1,7 +1,61 @@
-import React from "react";
-import { Box, Text, Flex, Button } from "@chakra-ui/react";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { Box, Text, Flex, Button, useColorMode } from "@chakra-ui/react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import EditExam from "./EditExam"; // Ensure the path is correct
 
 const MedicalTestCard = ({ test }) => {
+  
+
+  
+
+  const handleDelete = async () => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      background: '#303030',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5001/exam/${test.id}`);
+        window.location.reload();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          background: '#303030',
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: "There was an issue deleting the test.",
+          icon: "error",
+          background:  '#303030',
+        });
+      }
+    }
+  };
+
+  const handleSave = (updatedTest) => {
+    
+    Swal.fire({
+      title: "Updated!",
+      text: "The test has been updated successfully.",
+      icon: "success",
+      background: '#303030',
+    }).then(() => {
+      window.location.reload();
+    });
+  };// 
+
   return (
     <Box
       border="1px solid"
@@ -33,10 +87,8 @@ const MedicalTestCard = ({ test }) => {
         <Text ml={2}>{test.addedBy}</Text>
       </Flex>
       <Flex mt={4} justifyContent="flex-end">
-        <Button colorScheme="blue" size="sm" mr={2}>
-          Edit
-        </Button>
-        <Button colorScheme="red" size="sm">
+        <EditExam test={test} onSave={handleSave} />
+        <Button colorScheme="red" size="sm" onClick={handleDelete}>
           Delete
         </Button>
       </Flex>
