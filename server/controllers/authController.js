@@ -23,7 +23,7 @@ exports.login = async (req, res) => {
     const token = jwtUtils.generateToken({ id: user.id, name: user.fullName });
     res.status(StatusCodes.OK).send({ token });
   } else {
-    throw new UnauthorizedError("Invalid credentials.");
+    res.status(StatusCodes.NOT_FOUND).json({ msg: "Email or password is wrong" });
   }
 };
 

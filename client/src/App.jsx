@@ -10,52 +10,19 @@ import BirthsPage from "./pages/births/BirthsPage";
 import ExamsPage from "./pages/exams/ExamsPage";
 
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Home />
-            </Layout>
-          }
-        />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/cows"
-          element={
-            <Layout>
-              <CowsPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/milk"
-          element={
-            <Layout>
-              <MilkPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/births"
-          element={
-            <Layout>
-              <BirthsPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/exams"
-          element={
-            <Layout>
-              <ExamsPage />
-            </Layout>
-          }
-        />
-        <Route path="*" element={<NotfoundPage />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={token ? <Layout><Home /></Layout> : <LoginPage />} />
+          <Route path="/cows" element={token ? <Layout><CowsPage /></Layout> : <LoginPage />} />
+          <Route path="/milk" element={token ? <Layout><MilkPage /></Layout> : <LoginPage />} />
+          <Route path="/births" element={token ? <Layout><BirthsPage /> </Layout>: <LoginPage />} />
+          <Route path="/exams" element={token ? <Layout><ExamsPage /></Layout> : <LoginPage />} />
+          <Route path="*" element={token ? <NotfoundPage /> : <LoginPage/>} />
+          <Route path="/login" element={token ?  <Layout><Home /></Layout> : <LoginPage/>} />
+        </Routes>
+      
     </Router>
   );
 }

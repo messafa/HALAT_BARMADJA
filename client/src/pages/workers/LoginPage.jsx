@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
@@ -14,12 +15,63 @@ import {
   InputRightElement,
   Button,
 } from "@chakra-ui/react";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
+  
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5001/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // save token in local storage then redirect to another page "/"
+        localStorage.setItem('token', data.token);
+        window.location.href = '/';
+      } else {
+        Swal.fire('error', data.msg, 'error');
+      }
+    } catch (error) {
+      Swal.fire('خطأ', 'حدث خطأ ما!', 'error');
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5001/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        Swal.fire('نجاح', 'تم التسجيل بنجاح!', 'success');
+      } else {
+        Swal.fire('خطأ', data.message, 'error');
+      }
+    } catch (error) {
+      Swal.fire('خطأ', 'حدث خطأ ما!', 'error');
+    }
   };
 
   return (
@@ -73,12 +125,14 @@ const LoginPage = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <Box as="form">
+                <Box as="form" onSubmit={handleLogin}>
                   <Input
                     placeholder="Email"
                     type="email"
                     mb="4"
                     borderColor="teal.500"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <InputGroup size="md" mb="4">
                     <Input
@@ -86,6 +140,8 @@ const LoginPage = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       borderColor="teal.500"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <InputRightElement width="4.5rem">
                       <Button
@@ -107,18 +163,22 @@ const LoginPage = () => {
                 </Box>
               </TabPanel>
               <TabPanel>
-                <Box as="form">
+                <Box as="form" onSubmit={handleRegister}>
                   <Input
                     placeholder="Name"
                     type="text"
                     mb="4"
                     borderColor="teal.500"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <Input
                     placeholder="Email"
                     type="email"
                     mb="4"
                     borderColor="teal.500"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <InputGroup size="md" mb="4">
                     <Input
@@ -126,6 +186,8 @@ const LoginPage = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       borderColor="teal.500"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <InputRightElement width="4.5rem">
                       <Button
