@@ -13,18 +13,16 @@ import {
   FormLabel,
   Input,
   Text,
-  Select,
   useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const EditBirth = ({ birth, onSave }) => {
+const EditMilk = ({ milk}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
-    motherId: birth.motherId,
-    dateBirth: birth.dateBirth,
-    gender: birth.gender,
-    addedBy: birth.addedBy,
+    addedBy: milk.addedBy,
+    date: milk.date,
+    size: milk.size,
   });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -36,76 +34,68 @@ const EditBirth = ({ birth, onSave }) => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.patch(`http://localhost:5001/births/${birth.id}`, formData, {
+
+      console.log("FormData before sending:", formData);
+
+      const resp = await axios.patch(`http://localhost:5001/milk/${milk.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      onSave(formData);
-      setErrorMessage("");
-      onClose();
+
+      console.log("Response after sending:", resp);
+      if(resp.status === 200) {
+        onClose();
+        // onSave(resp.data);
+      } else {
+        setErrorMessage("An error occurred.");
+      }
+
     } catch (error) {
+      console.error("Error during update:", error);
       setErrorMessage(error.response?.data?.message || "An error occurred.");
     }
   };
 
   return (
     <>
-      <Button 
-      onClick={onOpen} 
-      colorScheme="blue" 
-      size="sm"
-      p={5} 
-      mx={2}
-      fontWeight={700}
-      >
+      <Button onClick={onOpen} colorScheme="blue" size="sm" mx={2}>
         Edit
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit Birth Details</ModalHeader>
+          <ModalHeader>Edit Milk Production</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl mb={4}>
-              <FormLabel>Mother ID</FormLabel>
-              <Input
-                name="motherId"
-                value={formData.motherId}
-                onChange={handleChange}
-              />
-              {errorMessage && (
-              <Text color="red.500" mt={2}>
-                {errorMessage}
-              </Text>
-            )}
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Date of Birth</FormLabel>
+              <FormLabel>Date</FormLabel>
               <Input
                 type="date"
-                name="dateBirth"
-                value={formData.dateBirth}
+                name="date"
+                value={formData.date}
                 onChange={handleChange}
               />
             </FormControl>
             <FormControl mb={4}>
-              <FormLabel>Gender</FormLabel>
-              <Select
-                name="gender"
-                value={formData.gender}
+              <FormLabel>Size (Liters)</FormLabel>
+              <Input
+                type="number"
+                name="size"
+                value={formData.size}
                 onChange={handleChange}
-              >
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </Select>
+              />
             </FormControl>
             <FormControl mb={4}>
               <FormLabel>Added By</FormLabel>
               <Input name="addedBy" value={formData.addedBy} isReadOnly />
             </FormControl>
-            
+            {errorMessage && (
+              <Text color="red.500" mt={2}>
+                {errorMessage}
+              </Text>
+            )}
           </ModalBody>
 
           <ModalFooter>
@@ -122,4 +112,4 @@ const EditBirth = ({ birth, onSave }) => {
   );
 };
 
-export default EditBirth;
+export default EditMilk;

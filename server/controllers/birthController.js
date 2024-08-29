@@ -52,7 +52,7 @@ exports.updateBirth = (req, res) => {
   const births = readJSONFile("births.json");
   const birthIndex = births.findIndex((b) => b.id === parseInt(req.params.id));
   if (birthIndex !== -1) {
-    if (checkCowId(req.body.motherId)) {
+    if (checkCowId(parseInt(req.body.motherId))) {
       const updatedBirth = { ...births[birthIndex], ...req.body };
       births[birthIndex] = updatedBirth;
       writeJSONFile("births.json", births);

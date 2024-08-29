@@ -1,69 +1,115 @@
-import  { useState } from "react";
-import { Box, Button, Heading, Flex, SimpleGrid, useColorMode } from "@chakra-ui/react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Heading,
+  Flex,
+  SimpleGrid,
+  useColorMode,
+} from "@chakra-ui/react";
 import CircularInfoComponent from "./components/CircularInfoComponent";
-import NowProdiction from "./components/NewProdiction"; // استيراد مكون NowProdiction
-
-const generateFakeData = () => {
-  const baseDate = new Date();
-  return Array.from({ length: 10 }, (_, index) => ({
-    addedBy: `User ${index + 1}`,
-    date: baseDate.toISOString().split('T')[0], // اليوم الحالي
-    size: Math.floor(Math.random() * 1000), // حجم عشوائي بين 0 و 1000
-    progress: Math.floor(Math.random() * 100) // نسبة مئوية عشوائية بين 0 و 100
-  }));
-};
+import NowProdiction from "./components/NewProdiction";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const MilkPage = () => {
-  // eslint-disable-next-line no-unused-vars
+  const [milks, setMilks] = useState([]);
+  const [maxMilk, setMaxMilk] = useState(0);
   const { colorMode } = useColorMode();
-  const fakeData = generateFakeData();
-  
-  // إدارة حالة فتح/إغلاق النافذة المنبثقة
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const token = localStorage.getItem("token");
 
   const handleSaveProduction = (newProductionData) => {
-    // يمكنك إضافة المنطق الخاص بحفظ بيانات الإنتاج الجديدة هنا
-    console.log("New Production Data:", newProductionData);
-    setIsModalOpen(false);
+    setMilks((prevMilks) => [...prevMilks, newProductionData]);
   };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to delete this production? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      background: "#303030",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:5001/milk/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Production deleted successfully",
+              background: "#303030",
+            });
+            setMilks((prevMilks) =>
+              prevMilks.filter((milk) => milk.id !== id)
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Something went wrong",
+              background: "#303030",
+            });
+          });
+      }
+    });
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5001/milk", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setMilks(res.data.milkProductions);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get("http://localhost:5001/milk/prodiction/max", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setMaxMilk(res.data.size);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token, milks]);
 
   return (
     <Box p={4}>
-      {/* العنوان وزر الإضافة في نفس السطر */}
       <Flex justify="space-between" align="center" mb={6}>
         <Heading fontSize="2xl" fontWeight="bold">
           Our Milk Production
         </Heading>
-        <Button colorScheme="teal" variant="solid" onClick={handleOpenModal}>
-          Add Production
-        </Button>
+        <NowProdiction onSave={handleSaveProduction} />
       </Flex>
 
-      {/* عرض عناصر CircularInfoComponent بناءً على حجم الشاشة */}
-      <SimpleGrid
-        columns={{ base: 1, sm: 2, md: 3 }} // 1 عمود للشاشات الصغيرة، 2 للشاشات المتوسطة، 3 للشاشات الكبيرة
-        spacing={6}
-      >
-        {fakeData.map((item, index) => (
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6}>
+        {milks.map((item) => (
           <CircularInfoComponent
-            key={index}
+            key={item.id}
+            id={item.id}
             addedBy={item.addedBy}
             date={item.date}
             size={item.size}
-            progress={item.progress}
+            progress={parseInt((item.size / maxMilk) * 100)}
+            onDelete={handleDelete}
           />
         ))}
       </SimpleGrid>
-
-      {/* مكون النافذة المنبثقة NowProdiction */}
-      <NowProdiction 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        onSave={handleSaveProduction} 
-      />
     </Box>
   );
 };

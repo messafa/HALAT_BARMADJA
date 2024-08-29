@@ -43,22 +43,8 @@
   },
   {
     "id": 3699,
-    "date": "2020-02-03",
-    "cowId": 58000849,
-    "disease": "disease2",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 181,
-    "date": "2020-02-03",
-    "cowId": 58000849,
-    "disease": "disease2",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 8164,
-    "date": "2020-03-03",
-    "cowId": 58000849,
+    "date": "2020-03-10",
+    "cowId": "58000849",
     "disease": "disease2",
     "addedBy": "messafa lahcen"
   }

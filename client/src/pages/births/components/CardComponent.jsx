@@ -8,7 +8,6 @@ import {
   Button,
   Stack,
   useColorMode,
-  useDisclosure,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -18,7 +17,6 @@ function CardComponent({ data, token }) {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "gray.700" };
   const textColor = { light: "black", dark: "white" };
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState(data);
 
   const handleDelete = async () => {
@@ -30,8 +28,7 @@ function CardComponent({ data, token }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then(()=>{
-      window.location.reload();
+      background: "#303030",
     });
 
     if (result.isConfirmed) {
@@ -41,25 +38,33 @@ function CardComponent({ data, token }) {
             Authorization: `Bearer ${token}`,
           },
         });
-        Swal.fire("Deleted!", "Your record has been deleted.", "success");
+        Swal.fire({
+          title: "Deleted!",
+          text: "The record has been deleted.",
+          icon: "success",
+          background: "#303030",
+        }).then(() => window.location.reload());
       } catch (error) {
-        Swal.fire("Error!", "There was an error deleting the record.", "error");
+        await Swal.fire({
+          title: "Error!",
+          text: "There was an error deleting the record.",
+          icon: "error",
+          background: "#303030",
+        });
       }
     }
   };
 
-  const handleSave = async () => {
-    try {
-      await axios.patch(`http://localhost:5001/births/${data.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      Swal.fire("Updated!", "Your record has been updated.", "success");
-      onClose();
-    } catch (error) {
-      Swal.fire("Error!", "There was an error updating the record.", "error");
-    }
+  const handleSave = (updatedBirth) => {
+    setFormData(updatedBirth);
+    Swal.fire({
+      title: "Updated!",
+      text: "The record has been updated.",
+      icon: "success",
+      background: "#303030",
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   return (
@@ -91,9 +96,7 @@ function CardComponent({ data, token }) {
             <Text>Gender: {data.gender === "F" ? "Female" : "Male"}</Text>
             <Text>Added By: {data.addedBy}</Text>
             <Stack direction="row" spacing={4} mt={4}>
-              <Button colorScheme="green" onClick={onOpen}>
-                Edit
-              </Button>
+              <EditBirth birth={data} onSave={handleSave} />
               <Button colorScheme="red" onClick={handleDelete}>
                 Delete
               </Button>
@@ -101,14 +104,6 @@ function CardComponent({ data, token }) {
           </Stack>
         </Box>
       </Box>
-
-      <EditBirth
-        isOpen={isOpen}
-        onClose={onClose}
-        formData={formData}
-        setFormData={setFormData}
-        handleSave={handleSave}
-      />
     </>
   );
 }

@@ -43,6 +43,7 @@ const LoginPage = () => {
       if (response.ok) {
         // save token in local storage then redirect to another page "/"
         localStorage.setItem('token', data.token);
+        localStorage.setItem('name', data.name);
         window.location.href = '/';
       } else {
         Swal.fire('error', data.msg, 'error');

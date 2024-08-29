@@ -16,7 +16,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
-import Swal from "sweetalert2";
+
 
 const EditExam = ({ test, onSave }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -113,4 +113,4 @@ const EditExam = ({ test, onSave }) => {
   );
 };
 
-export default EditExam;
+export default EditExam;

@@ -90,6 +90,7 @@ exports.updateMilkProduction = (req, res) => {
 };
 
 exports.deleteMilkProduction = (req, res) => {
+  console.log(req.params.id);
   const milkProductions = readJSONFile("milkProductions.json");
   const filteredMilkProductions = milkProductions.filter(
     (m) => m.id !== parseInt(req.params.id)
@@ -99,5 +100,17 @@ exports.deleteMilkProduction = (req, res) => {
     res.status(StatusCodes.OK).send("Milk production deleted.");
   } else {
     throw new NotFoundError("Milk production not found.");
+  }
+};
+
+exports.getMaxMilkProduction = (req, res) => {
+  const milkProductions = readJSONFile("milkProductions.json");
+  const maxMilkProduction = milkProductions.reduce((prev, current) =>
+    prev.size > current.size ? prev : current
+  );
+  if (maxMilkProduction) {
+    res.status(StatusCodes.OK).json(maxMilkProduction);
+  } else {
+    res.status(StatusCodes.NOT_FOUND).json({ message: "No milk production found." });
   }
 };

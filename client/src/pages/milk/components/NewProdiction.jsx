@@ -12,78 +12,114 @@ import {
   FormControl,
   FormLabel,
   Input,
-  useToast,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-const NowProdiction = ({ isOpen, onClose, onSave }) => {
-  const [dateEntree, setDateEntree] = useState("");
-  const [milkSize, setMilkSize] = useState("");
- 
-  const toast = useToast();
-  const addedBy = "Hisoka"; // القيمة الثابتة
+const NowProdiction = ({ onSave }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [formData, setFormData] = useState({
+    date: "",
+    size: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSave = () => {
-    if (!dateEntree || !milkSize) {
-      toast({
-        title: "Incomplete Data",
-        description: "Please fill out all required fields.",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
+  const resetForm = () => {
+    setFormData({ date: "", size: "" });
+    setErrorMessage("");
+  };
 
-    onSave({ dateEntree, milkSize, addedBy });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleClose = () => {
+    resetForm();
     onClose();
-    toast({
-      title: "Cow Added",
-      description: "The new cow has been added successfully.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
+  };
+
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      
+      const resp = await axios.post(
+        "http://localhost:5001/milk",
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (resp.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Production added successfully",
+          background: "#303030",
+        });
+        handleClose();
+        onSave(resp.data);
+      } else {
+        setErrorMessage("An error occurred.");
+      }
+
+    } catch (error) {
+      console.error("Error adding production:", error);
+      setErrorMessage(error.response?.data?.message || "An error occurred while adding production");
+    }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Add New Cow</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <FormControl isRequired>
-            <FormLabel>Date Entree</FormLabel>
-            <Input
-              type="date"
-              value={dateEntree}
-              onChange={(e) => setDateEntree(e.target.value)}
-            />
-          </FormControl>
-          <FormControl isRequired mt={4}>
-            <FormLabel>Milk Size:</FormLabel>
-            <Input
-              type="number"
-              value={milkSize}
-              onChange={(e) => setMilkSize(e.target.value)}
-            />
-          </FormControl>
+    <>
+      <Button onClick={onOpen} colorScheme="teal" variant="solid">
+        Add Production
+      </Button>
 
-          <FormControl mt={4}>
-            <FormLabel>Add by</FormLabel>
-            <Input value={addedBy} isReadOnly /> {/* الحقل غير قابل للتعديل */}
-          </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleSave}>
-            Save
-          </Button>
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+      <Modal isOpen={isOpen} onClose={handleClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add New Production</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl mb={4}>
+              <FormLabel>Production Date</FormLabel>
+              <Input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel>Milk Size (Liters)</FormLabel>
+              <Input
+                type="number"
+                name="size"
+                value={formData.size}
+                onChange={handleChange}
+              />
+            </FormControl>
+            {errorMessage && (
+              <Text color="red.500" mt={2}>
+                {errorMessage}
+              </Text>
+            )}
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleSave}>
+              Save
+            </Button>
+            <Button variant="outline" onClick={handleClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

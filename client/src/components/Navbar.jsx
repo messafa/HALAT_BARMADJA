@@ -11,14 +11,33 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Stack,
+  Avatar,
+  Button,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
- 
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("name");
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
+
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    window.location.href = "/login";
+    // Optionally redirect to login page or show a message
+  };
 
   return (
     <Box borderRadius={15} m={2} bg="teal.500" px={4}>
@@ -54,16 +73,13 @@ const Navbar = () => {
             Exams
           </NavLink>
         </Flex>
-        <Flex>
+        <Flex alignItems="center">
+          
           <IconButton
             size="md"
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             aria-label="Toggle Color Mode"
-            // onClick={toggleColorMode}
-            //use refrechPage function to refresh the page after changing the color mode
-            onClick={() => {
-              toggleColorMode();
-            }}
+            onClick={toggleColorMode}
             variant="ghost"
             color={colorMode === "light" ? "gray.800" : "white"}
             ml={2}
@@ -80,6 +96,18 @@ const Navbar = () => {
             ml={2}
             _hover={{ bg: colorMode === "light" ? "gray.100" : "gray.700" }}
           />
+          {name && (
+            <Avatar
+              size="md"
+              name={name}
+              bg="gray.700"
+              color="white"
+              ml={4}
+            ></Avatar>
+          )}
+          <Button size="sm" ml={4} onClick={handleLogout} colorScheme="red">
+            Logout
+          </Button>
         </Flex>
       </Flex>
 
