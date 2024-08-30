@@ -5,10 +5,12 @@ import {
   Heading,
   SimpleGrid,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import MedicalTestCard from "./components/MedicalTestCard";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import NewExam from "./components/NewExam";
 
 const ExamsPage = () => {
   const { id } = useParams();
@@ -17,7 +19,7 @@ const ExamsPage = () => {
   const url = id
     ? `http://localhost:5001/exam/cow/${id}`
     : "http://localhost:5001/exam";
-  console.log(url);
+  // console.log(url);
   useEffect(() => {
     const fetchCows = async () => {
       try {
@@ -27,7 +29,7 @@ const ExamsPage = () => {
           },
         });
         setMedicalTests(response.data.exams);
-        console.log(response.data.exams);
+        // console.log(response.data.exams);
       } catch (error) {
         console.error("Error fetching cows:", error);
       }
@@ -39,9 +41,23 @@ const ExamsPage = () => {
   return (
     <ChakraProvider>
       <Box padding="4">
-        <Heading as="h1" size="xl" marginBottom="4">
+        {id ? (
+          <Flex justifyContent="space-between" marginBottom="4">
+          <Heading as="h1" size="xl" marginBottom="4">
+            Cow {id} Tests
+          </Heading>
+          <NewExam cowId={id} onSave={(newExam) => setMedicalTests([...medicalTests, newExam])} /> 
+          </Flex> 
+        ): (
+          <Heading as="h1" size="xl" marginBottom="4">
+            Medical Tests
+          </Heading>
+        )}
+
+
+        {/* <Heading as="h1" size="xl" marginBottom="4">
           Medical Tests
-        </Heading>
+        </Heading> */}
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
           {medicalTests.length > 0 ? (
             medicalTests.map((medicalTest) => (

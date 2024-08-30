@@ -114,3 +114,39 @@ exports.getMaxMilkProduction = (req, res) => {
     res.status(StatusCodes.NOT_FOUND).json({ message: "No milk production found." });
   }
 };
+
+exports.getMilkByDate = (date) => {
+  // if the date not found return 0
+  const milkProductions = readJSONFile("milkProductions.json");
+  const milkProduction = milkProductions.find((m) => m.date === date);
+  if (milkProduction) {
+    return +milkProduction.size;
+  } else {
+    return 0;
+  }
+};
+
+exports.getMilkThisWeek = (req, res) => {
+  const milkThisWeek = [0, 0, 0, 0, 0, 0, 0];
+  // use getMilkByDate to get the milk production for each day of the week
+  const today = new Date();
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    milkThisWeek[6 - i] = exports.getMilkByDate(date.toISOString().split("T")[0]);
+  }
+  res.status(StatusCodes.OK).json(milkThisWeek);
+};
+
+exports.getMilkLastWeek = (req, res) => {
+  const milkLastWeek = [0, 0, 0, 0, 0, 0, 0];
+  const today = new Date();
+  const lastWeek = new Date(today);
+  lastWeek.setDate(lastWeek.getDate() - 7);
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(lastWeek);
+    date.setDate(date.getDate() - i);
+    milkLastWeek[6 - i] = exports.getMilkByDate(date.toISOString().split("T")[0]);
+  }
+  res.status(StatusCodes.OK).json(milkLastWeek);
+};

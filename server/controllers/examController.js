@@ -33,10 +33,7 @@ exports.addExam = (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   const decoded = jwtUtils.verifyToken(token);
-  console.log('here bro')
-  const checkCow = testing(req.body.cowId);
-  console.log(checkCow)
-  if (testing(req.body.cowId)) {
+  if (testing(parseInt(req.body.cowId))) {
     const exams = readJSONFile("exams.json");
     const newExam = {
       id: parseInt(uid.rnd()),
@@ -90,3 +87,20 @@ exports.deleteExamsByCowId = (cowId) => {
   const filteredExams = exams.filter((e) => e.cowId !== cowId);
   writeJSONFile("exams.json", filteredExams);
 };
+
+exports.getExamsNbrByMounth = (month) => {
+  const exams = readJSONFile("exams.json");
+  const examsNbr = exams.filter((e) => new Date(e.date).getMonth() === month);
+  return examsNbr.length;
+}
+
+exports.getExamsNbrOfLastSixMonths = (req,res) => {
+  // use the getExamsNbrByMounth function to get the number of exams for each month
+  
+  const examsNbr = [];
+  const currentMonth = new Date().getMonth();
+  for (let i = 0; i < 6; i++) {
+    examsNbr.push(exports.getExamsNbrByMounth((currentMonth - i + 12) % 12));
+  }
+  res.status(StatusCodes.OK).json( examsNbr );
+}

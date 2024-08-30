@@ -49,7 +49,9 @@ const NowProdiction = ({ onSave }) => {
         "http://localhost:5001/milk",
         formData,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { 
+            Authorization: `Bearer ${token}` 
+          },
         }
       );
 

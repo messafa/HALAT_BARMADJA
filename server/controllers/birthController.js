@@ -79,3 +79,26 @@ exports.getBirthsByCowId = (req, res) => {
   );
   res.status(StatusCodes.OK).json({ count: birthsByCow.length, births: birthsByCow });
 };
+
+exports.getNbrBirthsInSeason = (req, res) => {
+  const births = readJSONFile("births.json");
+  const birthsInSeason = births.reduce((acc, birth) => {
+    if (!birth.dateBirth) return acc; // تخطي السجلات بدون تواريخ
+
+    const month = new Date(birth.dateBirth).getMonth();
+
+    // حساب الفصول بناءً على الأشهر
+    if (month >= 2 && month <= 4) {
+      acc.spring++;
+    } else if (month >= 5 && month <= 7) {
+      acc.summer++;
+    } else if (month >= 8 && month <= 10) {
+      acc.autumn++;
+    } else {
+      acc.winter++;
+    }
+    return acc;
+  }, { spring: 0, summer: 0, autumn: 0, winter: 0 });
+
+  res.status(200).json(birthsInSeason);
+}

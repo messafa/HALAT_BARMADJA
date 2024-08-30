@@ -74,3 +74,26 @@ exports.deleteCow = (req, res) => {
     throw new NotFoundError("Cow not found.");
   }
 };
+
+
+exports.getYearlyCows = (req, res) => {
+  const cows = readJSONFile("cows.json");
+  const currentYear = new Date().getFullYear();
+  const lastYear = currentYear - 1;
+  const currentYearCows = cows.filter(
+    (c) => new Date(c.entryDate).getFullYear() === currentYear
+  );
+  const lastYearCows = cows.filter(
+    (c) => new Date(c.entryDate).getFullYear() === lastYear
+  );
+  const otherYearsCows = cows.filter(
+    (c) =>
+      new Date(c.entryDate).getFullYear() !== currentYear &&
+      new Date(c.entryDate).getFullYear() !== lastYear
+  );
+  res.status(StatusCodes.OK).json({
+    currentYear: currentYearCows.length,
+    lastYear: lastYearCows.length,
+    otherYears: otherYearsCows.length,
+  });
+};

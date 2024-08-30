@@ -33,5 +33,187 @@
     "cowId": 19146235,
     "disease": "disease3",
     "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 625,
+    "date": "2020-03-11",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 6042,
+    "cowId": "19146235",
+    "date": "2024-08-02",
+    "disease": "malad-12",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 6803,
+    "cowId": "19146235",
+    "date": "2024-08-09",
+    "disease": "malad-12",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 1126,
+    "cowId": "19146235",
+    "date": "2024-08-31",
+    "disease": "malad-12",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 889,
+    "cowId": "19146235",
+    "date": "2024-08-31",
+    "disease": "malad-12",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 7385,
+    "cowId": "19146235",
+    "date": "2024-08-16",
+    "disease": "malad-123",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5584,
+    "cowId": "19146235",
+    "date": "2024-08-02",
+    "disease": "malad-12",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5976,
+    "cowId": "19146235",
+    "date": "2024-08-02",
+    "disease": "malad-1201",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 1057,
+    "cowId": "19146235",
+    "date": "2024-08-02",
+    "disease": "malad-1201",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 8926,
+    "date": "2024-08-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3082,
+    "date": "2024-08-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3857,
+    "date": "2024-08-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 2780,
+    "date": "2024-08-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 2551,
+    "date": "2024-07-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 6369,
+    "date": "2024-07-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5880,
+    "date": "2024-06-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5465,
+    "date": "2024-03-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3585,
+    "date": "2024-03-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 4748,
+    "date": "2024-04-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 2979,
+    "date": "2024-04-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3394,
+    "date": "2024-04-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 413,
+    "date": "2024-04-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3859,
+    "date": "2024-04-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 2363,
+    "date": "2024-05-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 2365,
+    "date": "2024-05-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 7956,
+    "date": "2024-05-30",
+    "cowId": 19146235,
+    "disease": "disease35",
+    "addedBy": "messafa lahcen"
   }
 ]

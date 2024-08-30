@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
 import { SimpleGrid, Box, Heading, Flex } from "@chakra-ui/react";
@@ -27,22 +27,23 @@ const BirthsPage = () => {
         setBirths(response.data.births);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }, [token, setBirths]);
-  console.log(births);
   return (
     <Box p={5}>
-      {/* if have id title + NewBirth componnent else title only */}
       {id ? (
         <Flex justifyContent="space-between" mb={5}>
           <Heading mb={5}>{`Cow births ${id} `}</Heading>
-        <NewBirth motherId={id} onSave={(newBirth) => setBirths([...births, newBirth])} />
+          <NewBirth
+            motherId={id}
+            onSave={(newBirth) => setBirths([...births, newBirth])}
+          />
         </Flex>
       ) : (
         <Heading mb={5}>Our Births</Heading>
       )}
-      {/* <Heading mb={5}>Our Births</Heading> */}
+
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
         {births.map((birth) => (
           <CardComponent key={birth.id} data={birth} />
