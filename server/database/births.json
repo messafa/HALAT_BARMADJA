@@ -26,5 +26,47 @@
     "dateBirth": "2021-01-01",
     "gender": "F",
     "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 6912,
+    "motherId": 19146235,
+    "dateBirth": "2024-08-28",
+    "gender": "M",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5128,
+    "motherId": 19146235,
+    "dateBirth": "2024-08-28",
+    "gender": "F",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3958,
+    "motherId": "19146235",
+    "dateBirth": "",
+    "gender": "M",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 923,
+    "motherId": "19146235",
+    "dateBirth": "",
+    "gender": "M",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 4382,
+    "motherId": "19146235",
+    "dateBirth": null,
+    "gender": "M",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3733,
+    "motherId": "19146235",
+    "dateBirth": "2024-08-02",
+    "gender": "M",
+    "addedBy": "messafa lahcen"
   }
 ]

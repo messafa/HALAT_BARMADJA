@@ -1,7 +1,7 @@
 const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
-const { checkCowId } = require("./cowController");
+const { testing } = require("../utils/cowExamUtils");
 const jwtUtils = require("../utils/jwtUtils");
 const {
   NotFoundError,
@@ -33,7 +33,7 @@ exports.addBirth = (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   const decoded = jwtUtils.verifyToken(token);
-  if (checkCowId(req.body.motherId)) {
+  if (testing(parseInt(req.body.motherId))) {
     const births = readJSONFile("births.json");
     const newBirth = {
       id: parseInt(uid.rnd()),
@@ -52,7 +52,7 @@ exports.updateBirth = (req, res) => {
   const births = readJSONFile("births.json");
   const birthIndex = births.findIndex((b) => b.id === parseInt(req.params.id));
   if (birthIndex !== -1) {
-    if (checkCowId(parseInt(req.body.motherId))) {
+    if (testing(parseInt(req.body.motherId))) {
       const updatedBirth = { ...births[birthIndex], ...req.body };
       births[birthIndex] = updatedBirth;
       writeJSONFile("births.json", births);
@@ -70,4 +70,12 @@ exports.deleteBirth = (req, res) => {
   const filteredBirths = births.filter((b) => b.id !== parseInt(req.params.id));
   writeJSONFile("births.json", filteredBirths);
   res.status(StatusCodes.OK).json({ msg: "Birth deleted." });
+};
+
+exports.getBirthsByCowId = (req, res) => {
+  const births = readJSONFile("births.json");
+  const birthsByCow = births.filter(
+    (birth) => birth.motherId === parseInt(req.params.id)
+  );
+  res.status(StatusCodes.OK).json({ count: birthsByCow.length, births: birthsByCow });
 };

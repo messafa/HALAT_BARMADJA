@@ -4,7 +4,6 @@ import { Box, Heading, Flex, SimpleGrid } from "@chakra-ui/react";
 import InfoCard from "./components/InfoCard";
 import NewCow from "./components/NewCow";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const CowsPage = () => {
   const [cows, setCows] = useState([]);
@@ -16,37 +15,8 @@ const CowsPage = () => {
 
   const handleUpdate = (updatedCow) => {
     setCows((prevCows) =>
-      prevCows.map(
-        (cow) => (
-          cow.id === updatedCow.id ? updatedCow : cow
-        
-        ))
+      prevCows.map((cow) => (cow.id === updatedCow.id ? updatedCow : cow))
     );
-  };
-
-  const handleDelete = async (id) => {
-    const token = localStorage.getItem("token");
-
-    try {
-      await axios.delete(`${url}cows/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "The cow has been deleted successfully.",
-        background: "#303030",
-      });
-      setCows((prevCows) => prevCows.filter((cow) => cow.id !== id));
-    } catch (error) {
-      console.error("Error deleting cow:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred while deleting the cow.",
-        background: "#303030",
-      });
-    }
   };
 
   useEffect(() => {
@@ -64,7 +34,7 @@ const CowsPage = () => {
     };
 
     fetchCows();
-  }, [ cows]);
+  }, [cows]);
 
   return (
     <Box p={4}>
@@ -78,7 +48,7 @@ const CowsPage = () => {
             key={cow.id}
             cow={cow}
             onUpdate={handleUpdate}
-            onDelete={handleDelete}
+            // onDelete={handleDelete}
           />
         ))}
       </SimpleGrid>

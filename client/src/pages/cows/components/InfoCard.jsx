@@ -43,7 +43,7 @@ function InfoCard({ cow, onUpdate }) {
             icon: "success",
             background: "#303030",
           }).then(() => {
-            onUpdate();
+            onUpdate(cow);
           });
         } catch (error) {
           Swal.fire({
@@ -101,7 +101,7 @@ function InfoCard({ cow, onUpdate }) {
         </VStack>
       </Flex>
       <HStack mt="4" spacing="2" justify="center">
-        <Button colorScheme="purple">Children</Button>
+        <Button colorScheme="purple" as={'a'} href={`/births/cow/${cow.id}`} >Children</Button>
         <Button colorScheme="green" as={"a"} href={`/exams/cow/${cow.id}`}>
           Health File
         </Button>

@@ -1,19 +1,24 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import { SimpleGrid, Box, Heading } from '@chakra-ui/react';
-import CardComponent from './components/CardComponent';
-import { useState , useEffect } from 'react';
-import axios from 'axios';
+import { SimpleGrid, Box, Heading, Flex } from "@chakra-ui/react";
+import CardComponent from "./components/CardComponent";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import NewBirth from "./components/NewBirth";
 
-const BirthsPage = ({url}) => {
+const BirthsPage = () => {
+  const { id } = useParams();
   const token = localStorage.getItem("token");
-  const [births, setBirths] = useState([]); 
-  const path = window.location.pathname.split("/")[2];
-  console.log(path);
+  const [births, setBirths] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const url = id
+    ? `http://localhost:5001/births/cow/${id}`
+    : "http://localhost:5001/births";
   useEffect(() => {
     axios
-      .get(url || "http://localhost:5001/births", {
+      .get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +33,16 @@ const BirthsPage = ({url}) => {
   console.log(births);
   return (
     <Box p={5}>
-      <Heading mb={5}>Our Births</Heading>
+      {/* if have id title + NewBirth componnent else title only */}
+      {id ? (
+        <Flex justifyContent="space-between" mb={5}>
+          <Heading mb={5}>{`Cow births ${id} `}</Heading>
+        <NewBirth motherId={id} onSave={(newBirth) => setBirths([...births, newBirth])} />
+        </Flex>
+      ) : (
+        <Heading mb={5}>Our Births</Heading>
+      )}
+      {/* <Heading mb={5}>Our Births</Heading> */}
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
         {births.map((birth) => (
           <CardComponent key={birth.id} data={birth} />

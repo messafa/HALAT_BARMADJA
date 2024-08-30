@@ -12,5 +12,26 @@
     "cowId": "58000849",
     "disease": "disease2",
     "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 1621,
+    "date": "2020-03-11",
+    "cowId": 19146235,
+    "disease": "disease2",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 637,
+    "date": "2020-03-11",
+    "cowId": 19146235,
+    "disease": "disease1",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 2914,
+    "date": "2020-03-11",
+    "cowId": 19146235,
+    "disease": "disease3",
+    "addedBy": "messafa lahcen"
   }
 ]
