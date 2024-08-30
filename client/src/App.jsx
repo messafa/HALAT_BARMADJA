@@ -18,7 +18,9 @@ function App() {
           <Route path="/cows" element={token ? <Layout><CowsPage /></Layout> : <LoginPage />} />
           <Route path="/milk" element={token ? <Layout><MilkPage /></Layout> : <LoginPage />} />
           <Route path="/births" element={token ? <Layout><BirthsPage /> </Layout>: <LoginPage />} />
-          <Route path="/exams" element={token ? <Layout><ExamsPage /></Layout> : <LoginPage />} />
+          <Route path="/births/cow/:id" element={token ? <Layout><BirthsPage  /></Layout> : <LoginPage />} />
+          <Route path="/exams" element={token ? <Layout><ExamsPage  /></Layout> : <LoginPage />} />
+          <Route path="/exams/cow/:id" element={token ? <Layout><ExamsPage   /></Layout> : <LoginPage />} />
           <Route path="*" element={token ? <NotfoundPage /> : <LoginPage/>} />
           <Route path="/login" element={token ?  <Layout><Home /></Layout> : <LoginPage/>} />
         </Routes>

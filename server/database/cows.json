@@ -1,20 +1,116 @@
 [
   {
-    "id": 58000849,
-    "breed": "holstein",
+    "id": 19146232,
+    "breed": "Holstein",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 58000847,
+    "breed": "Holstein",
+    "entryDate": "2024-10-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 58000848,
+    "breed": "Holstein",
     "entryDate": "2024-10-10",
     "addedBy": "messafa lahcen"
   },
   {
     "id": 19146233,
-    "breed": "holstein",
+    "breed": "Montbéliarde",
     "entryDate": "2024-12-10",
     "addedBy": "messafa lahcen"
   },
   {
-    "id": 10332966,
-    "breed": "holstein",
-    "entryDate": "2024-12-01",
+    "id": 19146234,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146235,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146236,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146237,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146238,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146239,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146240,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146241,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146242,
+    "breed": "Montbéliarde",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146243,
+    "breed": "Holstein",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 19146244,
+    "breed": "Holstein",
+    "entryDate": "2024-12-10",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 3246175,
+    "breed": "Holstein",
+    "entryDate": "2023-12-02",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 61482526,
+    "entryDate": "2000-03-11",
+    "breed": "Holstein",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 82606922,
+    "entryDate": "1999-01-13",
+    "breed": "Holstein",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 5520703,
+    "entryDate": "1999-01-12",
+    "breed": "Montbéliarde",
     "addedBy": "messafa lahcen"
   }
 ]

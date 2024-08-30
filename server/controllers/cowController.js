@@ -2,11 +2,10 @@ const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
 const jwtUtils = require("../utils/jwtUtils");
-const {
-  NotFoundError,
-  BadRequestError,
-} = require("../utils/errors");
+const { deleteExamsByCowId } = require("./examController");
+const { NotFoundError, BadRequestError } = require("../utils/errors");
 const ShortUniqueId = require("short-unique-id");
+const e = require("express");
 const uid = new ShortUniqueId({
   length: 8,
   dictionary: "number",
@@ -67,15 +66,11 @@ exports.deleteCow = (req, res) => {
   const cows = readJSONFile("cows.json");
   const cowIndex = cows.findIndex((c) => c.id === parseInt(req.params.id));
   if (cowIndex !== -1) {
+    deleteExamsByCowId(parseInt(req.params.id));
     const filteredCows = cows.filter((c) => c.id !== parseInt(req.params.id));
     writeJSONFile("cows.json", filteredCows);
     res.status(StatusCodes.OK).send("Cow removed.");
   } else {
     throw new NotFoundError("Cow not found.");
   }
-};
-
-exports.checkCowId = (cowId) => {
-  const cows = readJSONFile("cows.json");
-  return cows.some((c) => c.id === cowId);
 };

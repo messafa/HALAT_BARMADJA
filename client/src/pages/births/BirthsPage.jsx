@@ -9,6 +9,8 @@ import axios from 'axios';
 const BirthsPage = ({url}) => {
   const token = localStorage.getItem("token");
   const [births, setBirths] = useState([]); 
+  const path = window.location.pathname.split("/")[2];
+  console.log(path);
   useEffect(() => {
     axios
       .get(url || "http://localhost:5001/births", {

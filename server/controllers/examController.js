@@ -1,7 +1,7 @@
 const { readJSONFile, writeJSONFile } = require("../utils/jsonUtils");
 const { StatusCodes } = require("http-status-codes");
 const { getNameById } = require("./authController");
-const { checkCowId } = require("./cowController");
+const { testing } = require("../utils/cowExamUtils");
 const jwtUtils = require("../utils/jwtUtils");
 const {
   NotFoundError,
@@ -33,7 +33,10 @@ exports.addExam = (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   const decoded = jwtUtils.verifyToken(token);
-  if (checkCowId(req.body.cowId)) {
+  console.log('here bro')
+  const checkCow = testing(req.body.cowId);
+  console.log(checkCow)
+  if (testing(req.body.cowId)) {
     const exams = readJSONFile("exams.json");
     const newExam = {
       id: parseInt(uid.rnd()),
@@ -52,7 +55,7 @@ exports.updateExam = (req, res) => {
   const exams = readJSONFile("exams.json");
   const examIndex = exams.findIndex((e) => e.id === parseInt(req.params.id));
   if (examIndex !== -1) {
-    if (checkCowId(parseInt(req.body.cowId))) {
+    if (testing(parseInt(req.body.cowId))) {
       const updatedExam = { ...exams[examIndex], ...req.body };
       exams[examIndex] = updatedExam;
       writeJSONFile("exams.json", exams);
@@ -82,12 +85,8 @@ exports.getExamsByCowId = (req, res) => {
   res.status(StatusCodes.OK).json({ count: cowExams.length, exams: cowExams });
 };
 
-// exports.getExamsOfCowByYear = (req, res) => {
-//   const exams = readJSONFile("exams.json");
-//   const cowExams = exams.filter(
-//     (e) =>
-//       e.cowId === parseInt(req.params.cowId) &&
-//       new Date(e.examDate).getFullYear() === parseInt(req.params.year)
-//   );
-//   res.status(StatusCodes.OK).json({ count: cowExams.length, exams: cowExams });
-// }
+exports.deleteExamsByCowId = (cowId) => {
+  const exams = readJSONFile("exams.json");
+  const filteredExams = exams.filter((e) => e.cowId !== cowId);
+  writeJSONFile("exams.json", filteredExams);
+};

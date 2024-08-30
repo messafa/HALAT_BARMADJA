@@ -7,10 +7,6 @@ import Swal from "sweetalert2";
 import EditExam from "./EditExam"; // Ensure the path is correct
 
 const MedicalTestCard = ({ test }) => {
-  
-
-  
-
   const handleDelete = async () => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -20,7 +16,7 @@ const MedicalTestCard = ({ test }) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-      background: '#303030',
+      background: "#303030",
     });
 
     if (result.isConfirmed) {
@@ -31,30 +27,29 @@ const MedicalTestCard = ({ test }) => {
           title: "Deleted!",
           text: "Your file has been deleted.",
           icon: "success",
-          background: '#303030',
+          background: "#303030",
         });
       } catch (error) {
         Swal.fire({
           title: "Error!",
           text: "There was an issue deleting the test.",
           icon: "error",
-          background:  '#303030',
+          background: "#303030",
         });
       }
     }
   };
 
   const handleSave = (updatedTest) => {
-    
     Swal.fire({
       title: "Updated!",
       text: "The test has been updated successfully.",
       icon: "success",
-      background: '#303030',
+      background: "#303030",
     }).then(() => {
       window.location.reload();
     });
-  };// 
+  }; //
 
   return (
     <Box

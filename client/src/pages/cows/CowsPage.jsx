@@ -1,58 +1,89 @@
-/* eslint-disable no-unused-vars */
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../../App.css";
-import { Box, Button, Heading, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, Flex, SimpleGrid } from "@chakra-ui/react";
 import InfoCard from "./components/InfoCard";
-import NewCow from "./components/NewCow"; // استيراد مكون NewCow
+import NewCow from "./components/NewCow";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const CowsPage = () => {
-  const [cows , setCows] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cows, setCows] = useState([]);
   const url = "http://localhost:5001/";
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
 
   const handleSave = (newCowData) => {
-    console.log("New Cow Data:", newCowData);
-    setIsModalOpen(false);
+    setCows((prevCows) => [...prevCows, newCowData]);
   };
-  // fetch cows data using useEffect and axios from http://localhost:5001/cows and send token in the header
+
+  const handleUpdate = (updatedCow) => {
+    setCows((prevCows) =>
+      prevCows.map(
+        (cow) => (
+          cow.id === updatedCow.id ? updatedCow : cow
+        
+        ))
+    );
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(`${url}cows/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "The cow has been deleted successfully.",
+        background: "#303030",
+      });
+      setCows((prevCows) => prevCows.filter((cow) => cow.id !== id));
+    } catch (error) {
+      console.error("Error deleting cow:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while deleting the cow.",
+        background: "#303030",
+      });
+    }
+  };
+
   useEffect(() => {
-    fetch(url + "cows", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setCows(data))
-      .catch((error) => console.log(error));
-  }, []);
+    const fetchCows = async () => {
+      try {
+        const response = await axios.get(url + "cows", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setCows(response.data.cows);
+      } catch (error) {
+        console.error("Error fetching cows:", error);
+      }
+    };
+
+    fetchCows();
+  }, [ cows]);
 
   return (
     <Box p={4}>
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Heading size="lg">Our Cows</Heading>
-        <Button colorScheme="teal" size="md" onClick={handleOpenModal}>
-          Add New Cow
-        </Button>
+        <NewCow onSave={handleSave} />
       </Flex>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-        <InfoCard />
-        <InfoCard />
-        <InfoCard />
-        <InfoCard />
-        <InfoCard />
-        <InfoCard />
-        <InfoCard />
-        <InfoCard />
+        {cows.map((cow) => (
+          <InfoCard
+            key={cow.id}
+            cow={cow}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        ))}
       </SimpleGrid>
-
-      {/* مكون النافذة المنبثقة NewCow */}
-      <NewCow isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSave} />
     </Box>
   );
 };
 
-export default CowsPage;5 
+export default CowsPage;
