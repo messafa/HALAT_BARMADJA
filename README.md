@@ -1,6 +1,6 @@
 # Dairy Delight: Farm Management System
 
-This project is a full-stack web application designed to manage the daily operations of a dairy farm, including cow registration, medical exams, birth records, and daily milk production. The frontend is built using **Vite React**, while the backend is powered by **Node.js** with **Express**. Data is stored in **JSON files** managed via the **FS module**, ensuring a lightweight and flexible data storage solution.
+This full-stack web application, built with **Vite** **React** on the frontend and **Node.js** with **Express.js** on the backend, manages dairy farm operations like cow registration, medical exams, birth records, and daily milk production, storing data in **JSON files** via the **FS module**, and is fully responsive across all devices with support for light and dark mode toggling.
 
 ## Contents
 
@@ -24,7 +24,7 @@ This project is a full-stack web application designed to manage the daily operat
 - **Data Persistence**: Store data in JSON files for easy management and portability.
 
 ## Overview
-
+```
 project-root/
 │
 ├── server/
@@ -68,7 +68,7 @@ project-root/
 │   ├── app.js                        // Main Express application setup
 │   ├── package-lock.json             // Auto-generated, locks dependencies versions
 │   └── package.json                  // Project metadata and dependencies
-
+```
 
 ## Setup Guide
 
