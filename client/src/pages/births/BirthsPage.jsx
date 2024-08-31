@@ -53,7 +53,11 @@ const BirthsPage = () => {
 
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
         {births.map((birth) => (
-          <CardComponent key={birth.id} data={birth} />
+          <CardComponent 
+          key={birth.id} 
+          data={birth}
+          setBirths={setBirths}
+           />
         ))}
       </SimpleGrid>
     </Box>

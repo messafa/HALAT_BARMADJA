@@ -1,16 +1,9 @@
 [
   {
-    "id": 1621,
-    "date": "2020-03-11",
-    "cowId": 19146235,
-    "disease": "disease2",
-    "addedBy": "messafa lahcen"
-  },
-  {
     "id": 637,
     "date": "2020-03-11",
     "cowId": 19146235,
-    "disease": "disease1",
+    "disease": "disease603",
     "addedBy": "messafa lahcen"
   },
   {
@@ -137,27 +130,6 @@
     "date": "2024-05-30",
     "cowId": 19146235,
     "disease": "disease35",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 7956,
-    "date": "2024-05-30",
-    "cowId": 19146235,
-    "disease": "disease35",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 1220,
-    "cowId": 19146236,
-    "date": "2024-08-31",
-    "disease": "malad-12",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 8321,
-    "date": "2024-08-30",
-    "cowId": 19146236,
-    "disease": "malad-1201",
     "addedBy": "messafa lahcen"
   }
 ]

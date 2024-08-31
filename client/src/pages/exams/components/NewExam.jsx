@@ -19,13 +19,12 @@ import axios from "axios";
 import { FaPlus } from "react-icons/fa";
 
 const NewExam = ({ cowId, onSave }) => {
-    // console.log(`id=${cowId}`)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
     cowId: cowId,
     date: "",
     disease: "",
-    addedBy: localStorage.getItem("name"), // assuming "name" is stored in localStorage
+    addedBy: localStorage.getItem("name"),
   });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -35,7 +34,6 @@ const NewExam = ({ cowId, onSave }) => {
   };
 
   const handleSave = async () => {
-    // console.log(formData);
     if (!formData.date || !formData.disease) {
       setErrorMessage("Please fill out all required fields.");
       return;
@@ -47,7 +45,6 @@ const NewExam = ({ cowId, onSave }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(resp.data)
       onSave(resp.data);
       setErrorMessage("");
       onClose();
@@ -70,11 +67,7 @@ const NewExam = ({ cowId, onSave }) => {
           <ModalBody>
             <FormControl>
               <FormLabel>Cow ID</FormLabel>
-              <Input
-                name="cowId"
-                value={formData.cowId}
-                readOnly
-              />
+              <Input name="cowId" value={formData.cowId} readOnly />
             </FormControl>
             <FormControl isRequired>
               <FormLabel>Date</FormLabel>
@@ -95,11 +88,7 @@ const NewExam = ({ cowId, onSave }) => {
             </FormControl>
             <FormControl>
               <FormLabel>Added By</FormLabel>
-              <Input
-                name="addedBy"
-                value={formData.addedBy}
-                readOnly
-              />
+              <Input name="addedBy" value={formData.addedBy} readOnly />
             </FormControl>
             {errorMessage && <Text color="red.500">{errorMessage}</Text>}
           </ModalBody>

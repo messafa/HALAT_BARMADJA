@@ -36,12 +36,13 @@ const EditExam = ({ test, onSave }) => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.patch(`http://localhost:5001/exam/${test.id}`, formData, {
+      const resp = await axios.patch(`http://localhost:5001/exam/${test.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      onSave(formData);
+      onSave(resp.data);
+      
       setErrorMessage("");
         onClose();
 

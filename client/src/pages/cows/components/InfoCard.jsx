@@ -107,7 +107,7 @@ function InfoCard({ cow, onUpdate }) {
         </Button>
         <EditCow cow={cow} onSave={handleSave} />
         <Button colorScheme="red" onClick={handleDelete}>
-         <FaTrash />
+         <FaTrash /> Delete
         </Button>
       </HStack>
     </Box>

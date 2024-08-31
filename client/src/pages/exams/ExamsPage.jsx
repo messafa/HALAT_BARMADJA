@@ -19,7 +19,6 @@ const ExamsPage = () => {
   const url = id
     ? `http://localhost:5001/exam/cow/${id}`
     : "http://localhost:5001/exam";
-  // console.log(url);
   useEffect(() => {
     const fetchCows = async () => {
       try {
@@ -29,7 +28,6 @@ const ExamsPage = () => {
           },
         });
         setMedicalTests(response.data.exams);
-        // console.log(response.data.exams);
       } catch (error) {
         console.error("Error fetching cows:", error);
       }
@@ -55,15 +53,13 @@ const ExamsPage = () => {
         )}
 
 
-        {/* <Heading as="h1" size="xl" marginBottom="4">
-          Medical Tests
-        </Heading> */}
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
           {medicalTests.length > 0 ? (
             medicalTests.map((medicalTest) => (
               <MedicalTestCard
                 key={medicalTest.id}
                 test={medicalTest}
+                setMedicalTests={setMedicalTests}
               />
             ))
           ) : (

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const EditMilk = ({ milk}) => {
+const EditMilk = ({ milk }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
     addedBy: milk.addedBy,
@@ -35,22 +35,21 @@ const EditMilk = ({ milk}) => {
     try {
       const token = localStorage.getItem("token");
 
-      console.log("FormData before sending:", formData);
+      const resp = await axios.patch(
+        `http://localhost:5001/milk/${milk.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      const resp = await axios.patch(`http://localhost:5001/milk/${milk.id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log("Response after sending:", resp);
-      if(resp.status === 200) {
+      if (resp.status === 200) {
         onClose();
-        // onSave(resp.data);
       } else {
         setErrorMessage("An error occurred.");
       }
-
     } catch (error) {
       console.error("Error during update:", error);
       setErrorMessage(error.response?.data?.message || "An error occurred.");

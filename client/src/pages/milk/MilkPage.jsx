@@ -52,7 +52,6 @@ const MilkPage = () => {
             );
           })
           .catch((error) => {
-            console.log(error);
             Swal.fire({
               icon: "error",
               title: "Error",
@@ -73,7 +72,7 @@ const MilkPage = () => {
         setMilks(res.data.milkProductions);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
 
     axios
@@ -84,7 +83,7 @@ const MilkPage = () => {
         setMaxMilk(res.data.size);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, [token, milks]);
 

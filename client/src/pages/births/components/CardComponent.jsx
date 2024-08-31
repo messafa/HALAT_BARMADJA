@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import EditBirth from "./EditBirth";
 
-function CardComponent({ data, token }) {
+function CardComponent({ data , setBirths }) {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "gray.700" };
   const textColor = { light: "black", dark: "white" };
@@ -30,7 +30,7 @@ function CardComponent({ data, token }) {
       confirmButtonText: "Yes, delete it!",
       background: "#303030",
     });
-
+    const token = localStorage.getItem("token");
     if (result.isConfirmed) {
       try {
         await axios.delete(`http://localhost:5001/births/${data.id}`, {
@@ -43,7 +43,9 @@ function CardComponent({ data, token }) {
           text: "The record has been deleted.",
           icon: "success",
           background: "#303030",
-        }).then(() => window.location.reload());
+        }).then(() => {
+          setBirths((prev) => prev.filter((birth) => birth.id !== data.id));
+        });
       } catch (error) {
         await Swal.fire({
           title: "Error!",

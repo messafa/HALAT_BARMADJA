@@ -59,6 +59,7 @@ const EditCow = ({ cow, onSave }) => {
       size="md" 
       mx={2}>
         <FaEdit />
+        Edit
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

@@ -5,7 +5,7 @@ import { Pie } from "react-chartjs-2";
 import axios from "axios";
 import { Chart, Filler } from "chart.js";
 
-// Register the Filler plugin if needed
+
 Chart.register(Filler);
 
 const FourSeasons = () => {
@@ -26,7 +26,7 @@ const FourSeasons = () => {
         setData(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, [url, config]);
 

@@ -9,7 +9,7 @@ const ChartTwoWeek = () => {
   const today = new Date().getDay();
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const url = "http://localhost:5001/milk/data/"; // plus thisweek or lastweek
+    const url = "http://localhost:5001/milk/data/";
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -21,7 +21,7 @@ const ChartTwoWeek = () => {
         setThisWeek(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
     axios
       .get(url + "lastweek", config)
@@ -29,7 +29,7 @@ const ChartTwoWeek = () => {
         setLastWeek(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, [today]);
 

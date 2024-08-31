@@ -41,7 +41,6 @@ const LoginPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        // save token in local storage then redirect to another page "/"
         localStorage.setItem('token', data.token);
         localStorage.setItem('name', data.name);
         window.location.href = '/';
@@ -49,7 +48,12 @@ const LoginPage = () => {
         Swal.fire('error', data.msg, 'error');
       }
     } catch (error) {
-      Swal.fire('خطأ', 'حدث خطأ ما!', 'error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        background: '#303030',
+      });
     }
   };
 
@@ -66,12 +70,27 @@ const LoginPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        Swal.fire('نجاح', 'تم التسجيل بنجاح!', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'User registered successfully',
+          background: '#303030',
+        });
       } else {
-        Swal.fire('خطأ', data.message, 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: data.msg,
+          background: '#303030',
+        });
       }
     } catch (error) {
-      Swal.fire('خطأ', 'حدث خطأ ما!', 'error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        background: '#303030',
+      });
     }
   };
 

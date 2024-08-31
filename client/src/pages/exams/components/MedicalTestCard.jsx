@@ -6,7 +6,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import EditExam from "./EditExam"; // Ensure the path is correct
 
-const MedicalTestCard = ({ test }) => {
+const MedicalTestCard = ({ test , setMedicalTests }) => {
+
+
   const handleDelete = async () => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -22,7 +24,10 @@ const MedicalTestCard = ({ test }) => {
     if (result.isConfirmed) {
       try {
         await axios.delete(`http://localhost:5001/exam/${test.id}`);
-        window.location.reload();
+        // window.location.reload();
+        setMedicalTests((prevTests) =>
+          prevTests.filter((medicalTest) => medicalTest.id !== test.id)
+        );
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
@@ -47,7 +52,11 @@ const MedicalTestCard = ({ test }) => {
       icon: "success",
       background: "#303030",
     }).then(() => {
-      window.location.reload();
+      setMedicalTests((prevTests) =>
+        prevTests.map((medicalTest) =>
+          medicalTest.id === updatedTest.id ? updatedTest : medicalTest
+        )
+      );
     });
   }; //
 
