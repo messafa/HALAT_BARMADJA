@@ -32,7 +32,6 @@ const BirthsPage = () => {
   }, [token, setBirths]);
 
   const handleSave = async (newBirth) => {
-    // update data don't need to fetch again
     const updatedBirths = [...births, newBirth];
     setBirths(updatedBirths);
   }

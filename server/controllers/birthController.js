@@ -97,11 +97,8 @@ exports.getNbrBirthsInSeason = (req, res) => {
   const births = readJSONFile("births.json");
   const birthsInSeason = births.reduce(
     (acc, birth) => {
-      if (!birth.dateBirth) return acc; // تخطي السجلات بدون تواريخ
-
+      if (!birth.dateBirth) return acc;
       const month = new Date(birth.dateBirth).getMonth();
-
-      // حساب الفصول بناءً على الأشهر
       if (month >= 2 && month <= 4) {
         acc.spring++;
       } else if (month >= 5 && month <= 7) {

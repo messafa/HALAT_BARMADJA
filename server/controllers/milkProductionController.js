@@ -116,7 +116,6 @@ exports.getMaxMilkProduction = (req, res) => {
 };
 
 exports.getMilkByDate = (date) => {
-  // if the date not found return 0
   const milkProductions = readJSONFile("milkProductions.json");
   const milkProduction = milkProductions.find((m) => m.date === date);
   if (milkProduction) {
@@ -128,7 +127,6 @@ exports.getMilkByDate = (date) => {
 
 exports.getMilkThisWeek = (req, res) => {
   const milkThisWeek = [0, 0, 0, 0, 0, 0, 0];
-  // use getMilkByDate to get the milk production for each day of the week
   const today = new Date();
   for (let i = 0; i < 7; i++) {
     const date = new Date(today);

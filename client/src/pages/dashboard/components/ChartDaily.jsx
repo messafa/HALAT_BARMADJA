@@ -31,7 +31,6 @@ const ChartDaily = () => {
     { month: "November" },
     { month: "December" },
   ];
-  // get last 6 mounth from this mounth
   const thisMonth = new Date().getMonth();
   const lastSixMonths = [helper[(thisMonth - 5 + 12) % 12].month, helper[(thisMonth - 4 + 12) % 12].month, helper[(thisMonth - 3 + 12) % 12].month, helper[(thisMonth - 2 + 12) % 12].month, helper[(thisMonth - 1 + 12) % 12].month, helper[thisMonth].month];
 

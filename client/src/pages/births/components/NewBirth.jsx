@@ -27,7 +27,7 @@ const NewBirth = ({ motherId, onSave }) => {
     motherId,
     dateBirth: "",
     gender: "M",
-    addedBy: localStorage.getItem("name"), // assuming "name" is stored in localStorage
+    addedBy: localStorage.getItem("name"),
   });
   const [errorMessage, setErrorMessage] = useState("");
 

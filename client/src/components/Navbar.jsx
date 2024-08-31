@@ -30,13 +30,10 @@ const Navbar = () => {
     }
   }, []);
 
-
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
-    window.location.href = "/login";
-    // Optionally redirect to login page or show a message
+    window.location.reload();
   };
 
   return (
@@ -74,7 +71,6 @@ const Navbar = () => {
           </NavLink>
         </Flex>
         <Flex alignItems="center">
-          
           <IconButton
             size="md"
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}

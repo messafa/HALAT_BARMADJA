@@ -48,7 +48,6 @@ const CowsPage = () => {
             key={cow.id}
             cow={cow}
             onUpdate={handleUpdate}
-            // onDelete={handleDelete}
           />
         ))}
       </SimpleGrid>

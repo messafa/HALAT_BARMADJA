@@ -98,7 +98,6 @@ exports.getExamsNbrByMounth = (month) => {
 }
 
 exports.getExamsNbrOfLastSixMonths = (req,res) => {
-  // use the getExamsNbrByMounth function to get the number of exams for each month
   
   const examsNbr = [];
   const currentMonth = new Date().getMonth();

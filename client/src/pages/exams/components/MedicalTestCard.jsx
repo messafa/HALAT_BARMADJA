@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Text, Flex, Button, useColorMode } from "@chakra-ui/react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import EditExam from "./EditExam"; // Ensure the path is correct
+import EditExam from "./EditExam";
 
 const MedicalTestCard = ({ test , setMedicalTests }) => {
 
@@ -24,7 +24,6 @@ const MedicalTestCard = ({ test , setMedicalTests }) => {
     if (result.isConfirmed) {
       try {
         await axios.delete(`http://localhost:5001/exam/${test.id}`);
-        // window.location.reload();
         setMedicalTests((prevTests) =>
           prevTests.filter((medicalTest) => medicalTest.id !== test.id)
         );
@@ -58,7 +57,7 @@ const MedicalTestCard = ({ test , setMedicalTests }) => {
         )
       );
     });
-  }; //
+  }; 
 
   return (
     <Box

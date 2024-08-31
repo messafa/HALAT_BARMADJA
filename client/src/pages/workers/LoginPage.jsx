@@ -141,7 +141,7 @@ const LoginPage = () => {
           <Tabs isFitted color={"white"} variant="enclosed" border={"teal"}>
             <TabList>
               <Tab>Login</Tab>
-              <Tab>Register</Tab>
+              {/* <Tab>Register</Tab> */} 
             </TabList>
             <TabPanels>
               <TabPanel>
