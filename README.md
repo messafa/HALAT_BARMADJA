@@ -74,18 +74,19 @@ project-root/
 
 1. **Clone the Project:**
 
-   git clone https://github.com/messafa/HALAT_BARMADJA.git
-   cd HALAT_BARMADJA
+   `git clone https://github.com/messafa/HALAT_BARMADJA.git`
+
+   `cd HALAT_BARMADJA`
    
 
 2. **Install Dependencies:**
 
-   cd client
-   npm install  or  npm i
+   `cd client`
+   `npm install`  or  `npm i`
 
-   cd ..
-   cd server 
-   npm i
+   `cd ..`
+   `cd server` 
+   `npm i`
    
 
 3. **Configuration:**
@@ -102,17 +103,17 @@ JWT_SECRET=3x@mpl3$3cr3tK3y!2024#S3cur3
 1. **Start the Server:**
 
    bash
-   npm run server
+   `npm run server`
 
 2. **Start the Client:**
 
    bash
-   npm run dev
+   `npm run dev`
 
 **OR**
   
   go to server file
-  npm start dev     // here I use concurrently for run the client and server by one commend only
+  `npm start dev`     // here I use concurrently for run the client and server by one commend only
    
 
 Access the client at `http://localhost:5173`.
@@ -126,7 +127,7 @@ Server will be run at `http://localhost:5001`.
 - **Add Cow**:       `POST    /cows`
 - **Retrieve Cow**:  `GET     /cows/:id`
 - **List Cows**:     `GET     /cows`
-- **Update Cow**:    `PATCH     /cows/:id`
+- **Update Cow**:    `PATCH   /cows/:id`
 - **Remove Cow**:    `DELETE  /cows/:id`
 - **Yearly Cows**:   `GET     /cows/data/yearly`
 
@@ -135,7 +136,7 @@ Server will be run at `http://localhost:5001`.
 - **Add Exam**:         `POST    /exams`
 - **Retrieve Exam**:    `GET     /exams/:id`
 - **List Exams**:       `GET     /exams`
-- **Update Exam**:      `PATCH     /exams/:id`
+- **Update Exam**:      `PATCH   /exams/:id`
 - **Remove Exam**:      `DELETE  /exams/:id`
 - **Exams by Cow**:     `GET     /exams/cow/:cowId`
 - **Last Six Months**:  `GET     /exams/data/lastSixMonths`
@@ -145,7 +146,7 @@ Server will be run at `http://localhost:5001`.
 - **Add Record**:       `POST    /births`
 - **Retrieve Record**:  `GET     /births/:id`
 - **List Records**:     `GET     /births`
-- **Update Record**:    `PATCH     /births/:id`
+- **Update Record**:    `PATCH   /births/:id`
 - **Remove Record**:    `DELETE  /births/:id`
 - **Births by Cow**:    `GET     /births/cow/:cowId`
 - **Births in Season**: `GET     /births/data/season`
