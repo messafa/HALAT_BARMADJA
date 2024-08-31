@@ -31,13 +31,13 @@ const DoughnutWeek = () => {
       {
         label: "Cows",
         data: [data.currentYear, data.lastYear, data.otherYears],
-        backgroundColor: ["green", "purple", "orange"],
+        backgroundColor: ["#01FBFF", "#DA07FA9B", "#6C6161"],
       },
     ],
   };
   return (
     <>
-      <Box bg="yellow.200" height="300px" p={4} borderRadius={10} display="flex"
+      <Box bg="#0000004C" height="300px" p={4} borderRadius={10} display="flex"
         justifyContent="center">
         <Doughnut data={doughnutData} />
       </Box>

@@ -40,15 +40,16 @@ const ChartDaily = () => {
       {
         label: "Medical Exams",
         data: data,
-        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-        borderColor: ["rgba(255, 99, 132, 1)"],
-        borderWidth: 1,
+        backgroundColor: ["#DA07FA9B"],
+        borderColor: ["#01FBFF"],
+        borderWidth: 2,
+        borderRadius: 10,
       },
     ],
   };
   return (
     <>
-      <Box bg="red.200" height="300px" p={4} borderRadius={10}>
+      <Box bg="#0000004C" height="300px" p={4} borderRadius={10}>
         <Bar data={barData} />
       </Box>
     </>

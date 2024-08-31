@@ -59,20 +59,20 @@ const ChartTwoWeek = () => {
         label: "this week",
         data: thisWeek,
         fill: true,
-        backgroundColor: "rgba(75,192,192,0.2)",
+        backgroundColor: "rgba(75,192,192,0.5)",
         borderColor: "rgba(75,192,192,1)",
       },
       {
         label: "last week",
         data: lastWeek,
         fill: false,
-        borderColor: "#742774",
+        borderColor: "#DA07FA9B",
       },
     ],
   };
   return (
     <>
-      <Box bg="green.600" height="300px" p={4} borderRadius={10}>
+      <Box bg="#0000004C" height="300px" p={4} borderRadius={10}>
         <Line data={NewData} />
       </Box>
     </>

@@ -7,7 +7,7 @@ const {
     addCow,
     updateCow,
     deleteCow,
-    getYearlyCows
+    getYearlyCows,
     } = require('../controllers/cowController');
 
 router.route('/').get(getCows).post(addCow);

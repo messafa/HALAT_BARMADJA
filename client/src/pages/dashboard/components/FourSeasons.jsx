@@ -36,14 +36,14 @@ const FourSeasons = () => {
       {
         label: "Births by Season",
         data: [data.winter, data.spring, data.summer, data.autumn],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF5733"],
+        backgroundColor: ["#807F7F", "#00FB15", "#01FBFF", "#FF00EA"],
       },
     ],
   };
 
   return (
     <Box
-      bg="blue.200"
+      bg="#0000004C"
       height="300px"
       p={4}
       borderRadius={10}

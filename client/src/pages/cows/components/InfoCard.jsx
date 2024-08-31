@@ -96,7 +96,7 @@ function InfoCard({ cow, onUpdate }) {
           <Text fontSize="lg" fontWeight="bold">
             Breed: {cow.breed}
           </Text>
-          <Text>Date of Entry: {cow.date} </Text>
+          <Text>Date of Entry: {cow.entryDate} </Text>
           <Text>Added by: {cow.addedBy}</Text>
         </VStack>
       </Flex>
