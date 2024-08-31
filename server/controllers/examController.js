@@ -35,9 +35,12 @@ exports.addExam = (req, res) => {
   const decoded = jwtUtils.verifyToken(token);
   if (testing(parseInt(req.body.cowId))) {
     const exams = readJSONFile("exams.json");
+    const {date,cowId,disease} = req.body;
     const newExam = {
       id: parseInt(uid.rnd()),
-      ...req.body,
+      date,
+      cowId:+cowId,
+      disease,
       addedBy: getNameById(decoded.id),
     };
     exams.push(newExam);

@@ -30,21 +30,32 @@ exports.getBirth = (req, res) => {
 };
 
 exports.addBirth = (req, res) => {
-  const token = req.headers.authorization.split(" ")[1];
+  const births = readJSONFile("births.json");
 
-  const decoded = jwtUtils.verifyToken(token);
-  if (testing(parseInt(req.body.motherId))) {
-    const births = readJSONFile("births.json");
-    const newBirth = {
-      id: parseInt(uid.rnd()),
-      ...req.body,
-      addedBy: getNameById(decoded.id),
-    };
-    births.push(newBirth);
-    writeJSONFile("births.json", births);
-    res.status(StatusCodes.CREATED).send(newBirth);
-  } else {
-    throw new BadRequestError(`we don't cow with id=${req.body.motherId}`);
+  const token = req.headers.authorization.split(" ")[1];
+  console.log(token);
+  try {
+    const decoded = jwtUtils.verifyToken(token);
+    if (decoded) {
+      const { motherId , dateBirth , gender } = req.body;
+      const newBirth = {
+        id: parseInt(uid.randomUUID(4)),
+        motherId: +motherId,
+        dateBirth,
+        gender,
+        addedBy: getNameById(decoded.id),
+      };
+      
+      births.push(newBirth);
+      
+      writeJSONFile("births.json", births);
+     
+      res.status(StatusCodes.CREATED).send(newBirth);
+    } else {
+      throw new UnauthorizedError("Invalid token.");
+    }
+  } catch (err) {
+    throw new UnauthorizedError("Invalid token.");
   }
 };
 
@@ -77,28 +88,33 @@ exports.getBirthsByCowId = (req, res) => {
   const birthsByCow = births.filter(
     (birth) => birth.motherId === parseInt(req.params.id)
   );
-  res.status(StatusCodes.OK).json({ count: birthsByCow.length, births: birthsByCow });
+  res
+    .status(StatusCodes.OK)
+    .json({ count: birthsByCow.length, births: birthsByCow });
 };
 
 exports.getNbrBirthsInSeason = (req, res) => {
   const births = readJSONFile("births.json");
-  const birthsInSeason = births.reduce((acc, birth) => {
-    if (!birth.dateBirth) return acc; // تخطي السجلات بدون تواريخ
+  const birthsInSeason = births.reduce(
+    (acc, birth) => {
+      if (!birth.dateBirth) return acc; // تخطي السجلات بدون تواريخ
 
-    const month = new Date(birth.dateBirth).getMonth();
+      const month = new Date(birth.dateBirth).getMonth();
 
-    // حساب الفصول بناءً على الأشهر
-    if (month >= 2 && month <= 4) {
-      acc.spring++;
-    } else if (month >= 5 && month <= 7) {
-      acc.summer++;
-    } else if (month >= 8 && month <= 10) {
-      acc.autumn++;
-    } else {
-      acc.winter++;
-    }
-    return acc;
-  }, { spring: 0, summer: 0, autumn: 0, winter: 0 });
+      // حساب الفصول بناءً على الأشهر
+      if (month >= 2 && month <= 4) {
+        acc.spring++;
+      } else if (month >= 5 && month <= 7) {
+        acc.summer++;
+      } else if (month >= 8 && month <= 10) {
+        acc.autumn++;
+      } else {
+        acc.winter++;
+      }
+      return acc;
+    },
+    { spring: 0, summer: 0, autumn: 0, winter: 0 }
+  );
 
   res.status(200).json(birthsInSeason);
-}
+};

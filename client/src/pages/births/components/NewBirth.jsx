@@ -18,20 +18,38 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
+import Swal from "sweetalert2";
+
 
 const NewBirth = ({ motherId, onSave }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
     motherId,
-    dateBirth: null,
+    dateBirth: "",
     gender: "M",
     addedBy: localStorage.getItem("name"), // assuming "name" is stored in localStorage
   });
   const [errorMessage, setErrorMessage] = useState("");
 
+  const resetForm = () => {
+    setFormData({
+      motherId,
+      dateBirth: "",
+      gender: "M",
+      addedBy: localStorage.getItem("name"),
+    });
+    setErrorMessage("");
+  }
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleClose = () => {
+    resetForm();
+    onClose();
   };
 
   const handleSave = async () => {
@@ -41,14 +59,29 @@ const NewBirth = ({ motherId, onSave }) => {
     }
     try {
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:5001/births", formData, {
+      const resp = await axios.post(
+        "http://localhost:5001/births", 
+        formData, 
+        {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      onSave(formData);
-      setErrorMessage("");
-      onClose();
+      if (resp.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Birth added successfully",
+          background: "#303030",
+        });
+        handleClose();
+        onSave(resp.data);
+      } else {
+        setErrorMessage("An error occurred.");
+      }
+
+
+
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "An error occurred.");
     }
@@ -70,6 +103,7 @@ const NewBirth = ({ motherId, onSave }) => {
               <FormLabel>Mother ID</FormLabel>
               <Input
                 name="motherId"
+                type="number"
                 value={formData.motherId}
                 readOnly
               />

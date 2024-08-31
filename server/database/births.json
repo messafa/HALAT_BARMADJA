@@ -110,5 +110,19 @@
     "dateBirth": "2022-04-12",
     "gender": "F",
     "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 4343,
+    "motherId": 19146235,
+    "dateBirth": "2024-08-30",
+    "gender": "M",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 8289,
+    "motherId": 19146235,
+    "dateBirth": "2024-08-09",
+    "gender": "M",
+    "addedBy": "messafa lahcen"
   }
 ]

@@ -30,6 +30,13 @@ const BirthsPage = () => {
         console.error(error);
       });
   }, [token, setBirths]);
+
+  const handleSave = async (newBirth) => {
+    // update data don't need to fetch again
+    const updatedBirths = [...births, newBirth];
+    setBirths(updatedBirths);
+  }
+
   return (
     <Box p={5}>
       {id ? (
@@ -37,7 +44,7 @@ const BirthsPage = () => {
           <Heading mb={5}>{`Cow births ${id} `}</Heading>
           <NewBirth
             motherId={id}
-            onSave={(newBirth) => setBirths([...births, newBirth])}
+            onSave={handleSave}
           />
         </Flex>
       ) : (

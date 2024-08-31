@@ -1,19 +1,5 @@
 [
   {
-    "id": 4830,
-    "date": "2024-03-07",
-    "cowId": "58000849",
-    "disease": "disease2",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 3699,
-    "date": "2020-03-10",
-    "cowId": "58000849",
-    "disease": "disease2",
-    "addedBy": "messafa lahcen"
-  },
-  {
     "id": 1621,
     "date": "2020-03-11",
     "cowId": 19146235,
@@ -39,62 +25,6 @@
     "date": "2020-03-11",
     "cowId": 19146235,
     "disease": "disease35",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 6042,
-    "cowId": "19146235",
-    "date": "2024-08-02",
-    "disease": "malad-12",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 6803,
-    "cowId": "19146235",
-    "date": "2024-08-09",
-    "disease": "malad-12",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 1126,
-    "cowId": "19146235",
-    "date": "2024-08-31",
-    "disease": "malad-12",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 889,
-    "cowId": "19146235",
-    "date": "2024-08-31",
-    "disease": "malad-12",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 7385,
-    "cowId": "19146235",
-    "date": "2024-08-16",
-    "disease": "malad-123",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 5584,
-    "cowId": "19146235",
-    "date": "2024-08-02",
-    "disease": "malad-12",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 5976,
-    "cowId": "19146235",
-    "date": "2024-08-02",
-    "disease": "malad-1201",
-    "addedBy": "messafa lahcen"
-  },
-  {
-    "id": 1057,
-    "cowId": "19146235",
-    "date": "2024-08-02",
-    "disease": "malad-1201",
     "addedBy": "messafa lahcen"
   },
   {
@@ -214,6 +144,20 @@
     "date": "2024-05-30",
     "cowId": 19146235,
     "disease": "disease35",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 1220,
+    "cowId": 19146236,
+    "date": "2024-08-31",
+    "disease": "malad-12",
+    "addedBy": "messafa lahcen"
+  },
+  {
+    "id": 8321,
+    "date": "2024-08-30",
+    "cowId": 19146236,
+    "disease": "malad-1201",
     "addedBy": "messafa lahcen"
   }
 ]
