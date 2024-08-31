@@ -1,4 +1,4 @@
-# Dairy Delight: Farm Management System
+# HALAT_BARMADJA: Farm Management System
 
 This full-stack web application, built with **Vite** **React** on the frontend and **Node.js** with **Express.js** on the backend, manages dairy farm operations like cow registration, medical exams, birth records, and daily milk production, storing data in **JSON files** via the **FS module**, and is fully responsive across all devices with support for light and dark mode toggling.
 
