@@ -167,16 +167,16 @@ Server will be run at `http://localhost:5001`.
 **Login Page**
 ![Login](./screenshots/login.png)
 **Dashboard**
-![Dashboard](./screenshots/dashboard.png)(./screenshots/dashboard2.png)
+![Dashboard](./screenshots/dashboard.png)
 **Our Cows**
 ![Cows](./screenshots/cows.png)
 **All Births**
-![Births](./screenshots/births1.png)
+![Births](./screenshots/births-1.png)
 **Births of Special cow**
-![Births](./screenshots/births2.png)
+![Births](./screenshots/births-2.png)
 **All Medical Exams**
-![Exams](./screenshots/exams1.png)
+![Exams](./screenshots/exams-1.png)
 **Medical Exams of Special cow**
-![Exams](./screenshots/exams2.png)
+![Exams](./screenshots/exams-2.png)
 **Milk prodiction Page**
 ![Milk](./screenshots/milk.png)
